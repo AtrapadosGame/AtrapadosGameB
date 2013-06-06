@@ -15,7 +15,7 @@ private var lastTooltip : String =  "";
 var customSkin: GUISkin;
 var camara : Camera;
 var luz : GameObject;  
-
+var puedeCambiarPj: boolean = true;
 
 
 
@@ -41,7 +41,7 @@ if(!pausa){
 for(var i:int = 0 ; i <4 ; i++)
 {
 
-	if(actuales[i])
+	if(actuales[i] && puedeCambiarPj)
 	{
 
  		if(GUI.Button(new Rect (i*ancho,0,ancho,alto),GUIContent(actuales[i].getTextura(), "Button")))
@@ -143,11 +143,26 @@ if(!actuales[i]){
 return false;
 }
 
+
+// ================================================================================
+// Getters y Setters
+// ================================================================================
+
 function getCurrentPlayer(): Player{
 return current;
 
 }
 
 
+function setPuedeCambiarPj(puede: boolean){
 
+puedeCambiarPj = puede;
+}
+
+
+
+function getPlayers(): Player[]{
+
+return actuales;
+}
 
