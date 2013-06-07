@@ -328,7 +328,7 @@ if(comando.Equals("Cristina")){
 		//Cristina se unio
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_WORLD5);
 		GetComponent(Player_Manager).addPlayer(new Player(texturaCuadroCristina,Player_Manager.CRISTINA, "Cristina" , texturaCursorCristina));
-				GameObject.Find("Cristina").GetComponent(Interactor_Click).enabled = false;
+				GameObject.Find("Cristina").GetComponent(Interactor_Click).FlagOff();
 		
 		Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
 

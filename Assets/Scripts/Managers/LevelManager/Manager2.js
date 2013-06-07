@@ -9,6 +9,7 @@ private var lootManager : LootManager1_5;
 private var persistance : Persistance;
 private var inventario : Inventario;
 
+private var puzzle : Puzzle;
 //Texturas
 var cinematicas : Texture2D[] = new Texture2D[5];
 
@@ -47,7 +48,7 @@ managerDialogos = GetComponent(ManagerDialogos1_5);
 lootManager = GetComponent(LootManager1_5);
 inventario = GetComponent(Inventario);
 persistance = GameObject.Find("Persistance").GetComponent(Persistance);
-
+puzzle = GetComponent(Puzzle);
 
 inventario.setItemsActuales(persistance.getInventario());
 
@@ -72,49 +73,10 @@ function EventTrigger(objName : String){
 //Imlementación de la funcion Switch()
 function EventSwitch(comando : String){
 	
-	if(comando.Equals("Diana")){
 	
-	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_DIANA);
+	if(comando.Equals("puzzle")){
 	
-	}
-	
-	if(comando.Equals("Fabio")){
-	
-	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_FABIO);
-	
-	}
-	
-	if(comando.Equals("Cristina")){
-	
-	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_CRISTINA);
-	
-	}
-	
-	if(comando.Equals("Mario")){
-	
-	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_MARIO);
-	
-	}
-	
-	if(comando.Equals("Francisco")){
-	
-	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_FRANCISCO);
-	
-	}
-	if(comando.Equals("Armario 1")){
-	
-	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_ARMARIO1);
-	
-	}
-	if(comando.Equals("Armario 2")){
-	
-	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_ARMARIO2);
-	
-	}//TEST PARA REALIZAR EL CAMBIO DE LEVEL
-	if(comando.Equals("CambioLevel")){
-	persistance.finalizarNivel(inventario.getItemsActuales(), playerManager.getPlayers());
-	    Application.LoadLevel ("Nivel2A");
-	
+	puzzle.empezarPuzzle();
 	}
 	
 }
