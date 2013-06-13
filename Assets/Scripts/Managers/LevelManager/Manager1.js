@@ -11,8 +11,9 @@
 // ================================================================================
 
 private var currentPlayer : Player;
-private var managerDialogos;
-
+private var managerDialogos: ManagerDialogos1;
+private var inventario : InventarioManager;
+private var playerManager : Player_Manager;
 
 private var cinematica1 : boolean = false;//Derrumbe fabio-dario
 private var cinematica2 : boolean = false;//Curar Cristina
@@ -39,8 +40,7 @@ var texturaCuadroCristina : Texture2D;
 var texturaCuadroFabio : Texture2D;
 var texturaCuadroDiana : Texture2D;
 
-public static final var OBJETO_LLAVE  :int= 0;
-public static final var OBJETO_BOTIQUIN  :int= 1;
+
 
 public var onPause : boolean = false;
 
@@ -49,8 +49,12 @@ public var onPause : boolean = false;
 // ================================================================================
 
 function Awake () {
-	print("start maanger");
-	GetComponent(Player_Manager).addPlayer(new Player(texturaCuadroDario,Player_Manager.DARIO, "Dario" , texturaCursorDario));
+	
+	inventario =  GetComponent(InventarioManager);
+	playerManager = GetComponent(Player_Manager);
+	
+	
+	playerManager.addPlayer(new Player(texturaCuadroDario,Player_Manager.DARIO, "Dario" , texturaCursorDario));
 	GameObject.Find("Cristina").renderer.enabled = false;
 	GameObject.Find("Cristina").collider.enabled = false;
 	GameObject.Find("Derrumbe").renderer.enabled = false;
@@ -58,6 +62,7 @@ function Awake () {
 	GameObject.Find("Derrumbe2").renderer.enabled = false;
 	GameObject.Find("Derrumbe2").collider.enabled = false;
 	managerDialogos = GetComponent(ManagerDialogos1);
+	
 }
 
 
@@ -89,8 +94,8 @@ function OnGUI(){
 
 //Implementación de la función Trigger()
 function EventTrigger(objName : String){
-	currentPlayer = GetComponent(Player_Manager).getCurrentPlayer();
-	var managerDialogos = GetComponent(ManagerDialogos1);
+	currentPlayer = playerManager.getCurrentPlayer();
+	
 	
 	if(objName.Equals("Inicio")){
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_DARIO1);
@@ -125,15 +130,15 @@ function EventTrigger(objName : String){
 		der.collider.enabled = true;
 		der.audio.Play();
 		//managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_WORLD3);
-		GetComponent(Player_Manager).addPlayer(new Player(texturaCuadroFabio,Player_Manager.FABIO, "Fabio" , texturaCursorFabio));
+		playerManager.addPlayer(new Player(texturaCuadroFabio,Player_Manager.FABIO, "Fabio" , texturaCursorFabio));
 		
 		
 	}
 	
 	if(objName.Equals("Salida")){
-		var fabio : boolean = GetComponent(Player_Manager).estaPersonaje(Player_Manager.FABIO);
-		var diana : boolean = GetComponent(Player_Manager).estaPersonaje(Player_Manager.DIANA);
-		var cris : boolean = GetComponent(Player_Manager).estaPersonaje(Player_Manager.CRISTINA);
+		var fabio : boolean = playerManager.estaPersonaje(Player_Manager.FABIO);
+		var diana : boolean = playerManager.estaPersonaje(Player_Manager.DIANA);
+		var cris : boolean = playerManager.estaPersonaje(Player_Manager.CRISTINA);
 		print(fabio + " " + diana + " " + cris);
 		if(fabio && diana && cris){
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER5);
@@ -146,9 +151,9 @@ function EventTrigger(objName : String){
 	}
 	
 	if(objName.Equals("Salida2")){
-		fabio = GetComponent(Player_Manager).estaPersonaje(Player_Manager.FABIO);
-		diana = GetComponent(Player_Manager).estaPersonaje(Player_Manager.DIANA);
-		cris = GetComponent(Player_Manager).estaPersonaje(Player_Manager.CRISTINA);
+		fabio = playerManager.estaPersonaje(Player_Manager.FABIO);
+		diana = playerManager.estaPersonaje(Player_Manager.DIANA);
+		cris = playerManager.estaPersonaje(Player_Manager.CRISTINA);
 		
 		if(fabio && diana && cris){
 			
@@ -188,15 +193,15 @@ function EventTrigger(objName : String){
 
 //Imlementación de la funcion Switch()
 function EventSwitch(comando : String){
-currentPlayer = GetComponent(Player_Manager).getCurrentPlayer();
+currentPlayer = playerManager.getCurrentPlayer();
 	
-	var managerDialogos = GetComponent(ManagerDialogos1);
+	
 	//Caja donde esta la llave
 	if(comando.Equals("Caja")){
 		
 		//Aca se consigue la llave de la puerta
 		GameObject.Find("CajaLlave").GetComponent(Interactor_Click).FlagOff();
-		GetComponent(Inventario).addItem(new Item(texturaLlave, OBJETO_LLAVE));
+		inventario.addItem(new Item(texturaLlave, InventarioManager.LLAVE));
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_DARIO3);
 		Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
 		
@@ -205,7 +210,7 @@ currentPlayer = GetComponent(Player_Manager).getCurrentPlayer();
 	if(comando.Equals("Puerta")){
 		
 		//SI se tiene la llave en el inventario
-		if(GetComponent(Inventario).enInventario(OBJETO_LLAVE)){
+		if(inventario.enInventario(InventarioManager.LLAVE)){
 			
 			var puerta : GameObject = GameObject.Find("Puerta");
 			puerta.audio.Play();
@@ -226,7 +231,7 @@ currentPlayer = GetComponent(Player_Manager).getCurrentPlayer();
 		//Cuando el jugador interactua con el cajon que contiene el botiquin
 		if(!(currentPlayer.getId() == Player_Manager.DIANA)){// Si no se tiene a Diana seleccionada
 		
-			if(GetComponent(Player_Manager).estaPersonaje(Player_Manager.DIANA))
+			if(playerManager.estaPersonaje(Player_Manager.DIANA))
 			{//Si diana esta en la party
 				managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER12);
 		}
@@ -237,7 +242,7 @@ currentPlayer = GetComponent(Player_Manager).getCurrentPlayer();
 }
 else{//Cuando se tiene a diana seleccionada
 	
-	GetComponent(Inventario).addItem(new Item(texturaBotiquin, OBJETO_BOTIQUIN));
+	inventario.addItem(new Item(texturaBotiquin, InventarioManager.BOTIQUIN));
 	managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_DIANA1);
 	GameObject.Find("CajaBotiquin").GetComponent(Interactor_Click).FlagOff();
 	Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
@@ -291,14 +296,14 @@ if(comando.Equals("Escombros")){
 		Destroy(GameObject.Find("Escombros"));
 		cinematica1 = false;
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_DIANA2);
-		GetComponent(Player_Manager).addPlayer(new Player(texturaCuadroDiana,Player_Manager.DIANA, "Diana" , texturaCursorDiana));
+		playerManager.addPlayer(new Player(texturaCuadroDiana,Player_Manager.DIANA, "Diana" , texturaCursorDiana));
 		
 		Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
 		GameObject.Find("AuxilioTrigger").GetComponent(Interactor_Trigger).apagar();
 		
 	}
 	else if(currentPlayer.getId() == Player_Manager.DARIO){
-		if(GetComponent(Player_Manager).estaPersonaje(Player_Manager.FABIO)){ // Si esta fabio
+		if(playerManager.estaPersonaje(Player_Manager.FABIO)){ // Si esta fabio
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_DARIO5);
 		}
 		else{
@@ -315,19 +320,19 @@ if(comando.Equals("Cristina")){
 	
 	if(currentPlayer.getId() == Player_Manager.DIANA){//Si se tiene a diana seleccionada
 	
-	if(GetComponent(Inventario).enInventario(OBJETO_BOTIQUIN)){
+	if(inventario.enInventario(InventarioManager.BOTIQUIN)){
 		
 		//Curan exitosamente a cristina
 		currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
 		cinematica2 = true;
 		
-		yield WaitForSeconds(5);
+		yield WaitForSeconds(3);
 		cinematica2 = false;
 		//Ya esta
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER3);
 		//Cristina se unio
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_WORLD5);
-		GetComponent(Player_Manager).addPlayer(new Player(texturaCuadroCristina,Player_Manager.CRISTINA, "Cristina" , texturaCursorCristina));
+		playerManager.addPlayer(new Player(texturaCuadroCristina,Player_Manager.CRISTINA, "Cristina" , texturaCursorCristina));
 				GameObject.Find("Cristina").GetComponent(Interactor_Click).FlagOff();
 		
 		Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
@@ -366,7 +371,7 @@ if(comando.Equals("Emergencia")){
 	}
 	else{
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER7);
-		if(GetComponent(Player_Manager).estaPersonaje(Player_Manager.CRISTINA)){
+		if(playerManager.estaPersonaje(Player_Manager.CRISTINA)){
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER8);
 		}
 	}

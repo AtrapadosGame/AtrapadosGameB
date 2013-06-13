@@ -88,7 +88,7 @@ function Start(){
 // ================================================================================
 
 function OnGUI () {
-var pausa : boolean = GetComponent(MenuScript).estaPausado();
+var pausa : boolean = GetComponent(MenuManager).estaPausado();
 if(!pausa){
 GUI.skin = customSkin;
 	if(dialogosActivos){
@@ -149,7 +149,7 @@ function WindowFunction (windowID : int) {
 // OnMouseDown
 // ================================================================================
 function Update(){
-var pausa : boolean = GetComponent(MenuScript).estaPausado();
+var pausa : boolean = GetComponent(MenuManager).estaPausado();
 if(!pausa){
 if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 
@@ -171,6 +171,7 @@ if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 		dialogosActivos = false;
 		GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 		manager.GetComponent(IEvent_manager).DialogSwitch(conversacionActual.getResultado());
+		GetComponent(MenuManager).setBotonesHabilitado(true);
 		
 	}
 }
@@ -186,6 +187,7 @@ if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 
 function empezarDialogos(idConversacion:int ){
 print("empezarDialogos");
+GetComponent(MenuManager).setBotonesHabilitado(false);
 
 switch(idConversacion){
 

@@ -179,7 +179,7 @@ function Start(){
 // ================================================================================
 
 function OnGUI () {
-var pausa : boolean = GetComponent(MenuScript).estaPausado();
+var pausa : boolean = GetComponent(MenuManager).estaPausado();
 if(!pausa){
 GUI.skin = customSkin;
 	if(dialogosActivos){
@@ -263,6 +263,7 @@ if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 		print("Fin dialogo");
 		dialogosActivos = false;
 		prenderMovimiento();
+		GetComponent(MenuManager).setBotonesHabilitado(true);
 		
 	}
 }
@@ -284,6 +285,8 @@ function apagarMovimiento(){
 GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
 }
 function empezarDialogos(idConversacion:int ){
+GetComponent(MenuManager).setBotonesHabilitado(false);
+
 print("empezarDialogos");
 var texturaPlayer:Texture2D;
 apagarMovimiento();

@@ -1,6 +1,3 @@
-#pragma strict
-
-
 
 // ================================================================================
 // Variables
@@ -20,12 +17,14 @@ var puedeCambiarPj: boolean = true;
 
 
 
+
 public static final var DARIO : int = 0;
 public static final var CRISTINA : int = 1;
 public static final var DIANA : int = 2;
 public static final var FABIO : int = 3;
 public static final var MARIO : int = 4;
 public static final var FRANCISCO : int = 5;
+public static final var GABRIELA : int = 6;
 
 // ================================================================================
 // OnGUI
@@ -35,8 +34,9 @@ public static final var FRANCISCO : int = 5;
 function OnGUI () 
 {
 
-var pausa : boolean = GetComponent(MenuScript).estaPausado();
-if(!pausa){
+var pausa : boolean = GetComponent(MenuManager).estaPausado();
+var botonesHabilitados : boolean = GetComponent(MenuManager).estaBotonesHabilitado();
+if(!pausa&&botonesHabilitados){
 
 for(var i:int = 0 ; i <4 ; i++)
 {
@@ -144,25 +144,22 @@ return false;
 }
 
 
+
 // ================================================================================
 // Getters y Setters
 // ================================================================================
-
-function getCurrentPlayer(): Player{
-return current;
-
-}
-
 
 function setPuedeCambiarPj(puede: boolean){
 
 puedeCambiarPj = puede;
 }
 
+function getCurrentPlayer(): Player{
+return current;
 
+}
 
 function getPlayers(): Player[]{
 
 return actuales;
 }
-

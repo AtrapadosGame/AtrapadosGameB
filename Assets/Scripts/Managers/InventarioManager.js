@@ -11,6 +11,20 @@ private var alto : int;
 var customSkin: GUISkin;
 var texturaVacia : Texture2D;
 private var lastTooltip : String =  "";
+
+public static final var PALA : int = 0;
+public static final var EXTINTOR : int = 1;
+public static final var TOALLA : int = 2;
+public static final var BOTIQUIN : int = 3;
+public static final var LLAVE_INGLESA : int = 4;
+public static final var CUERDA : int = 5;
+public static final var TIJERAS : int = 6;
+public static final var LLAVE  :int= 7;
+public static final var PALANCA  :int= 8;
+
+
+
+
 // ================================================================================
 // Start
 // ================================================================================
@@ -30,8 +44,10 @@ function Start () {
 function OnGUI () {
 
 GUI.skin = customSkin;
-var pausa : boolean = GetComponent(MenuScript).estaPausado();
-if(!pausa){
+var pausa : boolean = GetComponent(MenuManager).estaPausado();
+var botonesHabilitados : boolean = GetComponent(MenuManager).estaBotonesHabilitado();
+
+if(!pausa&&botonesHabilitados){
 for(var i:int = 0 ; i <4 ; i++){
 	if (itemsActuales[i]){
 		GUI.Box(new Rect(i*ancho,Screen.height - alto,ancho,alto), GUIContent(itemsActuales[i].getTextura(), "Button"));
@@ -120,7 +136,6 @@ itemsActuales = tempItems;
 // ================================================================================
 // Getters y Setters
 // ================================================================================
-
 
 function getItemsActuales(): Item[]{
 

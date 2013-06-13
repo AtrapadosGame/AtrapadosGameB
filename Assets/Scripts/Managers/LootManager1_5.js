@@ -18,7 +18,7 @@ private var ventana : Rect = Rect(Screen.width/4,Screen.height/4, Screen.width/2
 
 
 
-private var inventario : Inventario;
+private var inventario : InventarioManager;
 
 //Dimensiones de los botones
 private var ancho : int = 128;
@@ -45,13 +45,6 @@ public static final var LOOT_ARMARIO3 :int = 2;
 
 
 
-public static final var PALA : int = 0;
-public static final var EXTINTOR : int = 1;
-public static final var TOALLA : int = 2;
-public static final var BOTIQUIN : int = 3;
-public static final var LLAVE_INGLESA : int = 4;
-public static final var CUERDA : int = 5;
-public static final var TIJERAS : int = 6;
 
 
 
@@ -65,7 +58,7 @@ public static final var TIJERAS : int = 6;
 
 function Start(){
 
-inventario = GetComponent(Inventario);
+inventario = GetComponent(InventarioManager);
  inicializarLootArmario1();
  inicializarLootArmario2();
 // inicializarLootArmario3();
@@ -79,11 +72,17 @@ inventario = GetComponent(Inventario);
 //TODO
 function OnGUI () {
 
+var pausa : boolean = GetComponent(MenuManager).estaPausado();
+
+if(!pausa){
 //GUI.skin = customSkin;
 	if(lootActivo){
 		ventana = GUI.Window(0,ventana , WindowFunction,"");
 		//GUI.Box(Rect(0,50,Screen.width/2,Screen.height/2),texturaActual1);
 		//GUI.Box(Rect(Screen.width/2,50,Screen.width/2,Screen.height/2),texturaActual2);		
+	}
+	
+	
 	}
 }
 //TODO
@@ -119,6 +118,7 @@ if(GUI.Button(new Rect(ventana.width/2, (ventana.height * 3)/4, ancho, alto ), "
 		
 		lootActivo = false;
 		GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();		
+		GetComponent(MenuManager).setBotonesHabilitado(true);
 		}
 
 
@@ -133,7 +133,7 @@ if(GUI.Button(new Rect(ventana.width/2, (ventana.height * 3)/4, ancho, alto ), "
 
 function empezarLoot(idLoot:int ){
 print("empezarLoot");
-
+GetComponent(MenuManager).setBotonesHabilitado(false);
 switch(idLoot){
 
 case LOOT_ARMARIO1:
@@ -175,9 +175,9 @@ function inicializarLootArmario1(){
 print("Inicializa el loot del primer armario ");
 
 var tmpItems : Item[] = new Item[3];
-tmpItems[0]  = new Item(texturaPala,PALA,"Pala");
-tmpItems[1] =new Item(texturaExtintor,EXTINTOR,"Extintor");
-tmpItems[2] = new Item(texturaToalla,TOALLA,"Toalla");
+tmpItems[0]  = new Item(texturaPala,InventarioManager.PALA,"Pala");
+tmpItems[1] =new Item(texturaExtintor,InventarioManager.EXTINTOR,"Extintor");
+tmpItems[2] = new Item(texturaToalla,InventarioManager.TOALLA,"Toalla");
 lootArmario1 = new Loot(tmpItems,LOOT_ARMARIO1);
 
 
@@ -189,9 +189,9 @@ lootArmario1 = new Loot(tmpItems,LOOT_ARMARIO1);
 function inicializarLootArmario2(){
 print("Inicializa el loot del segundo armario ");
 var tmpItems: Item[] = new Item[3];
-tmpItems[0]  = new Item(texturaBotiquin,BOTIQUIN,"Botiquin");
-tmpItems[1] = new Item(texturaLlaveInglesa,LLAVE_INGLESA,"Llave Inglesa");
-tmpItems[2] = new Item(texturaCuerda,CUERDA,"Cuerda");
+tmpItems[0]  = new Item(texturaBotiquin,InventarioManager.BOTIQUIN,"Botiquin");
+tmpItems[1] = new Item(texturaLlaveInglesa,InventarioManager.LLAVE_INGLESA,"Llave Inglesa");
+tmpItems[2] = new Item(texturaCuerda,InventarioManager.CUERDA,"Cuerda");
 lootArmario2 = new Loot(tmpItems,LOOT_ARMARIO2);
 
 }

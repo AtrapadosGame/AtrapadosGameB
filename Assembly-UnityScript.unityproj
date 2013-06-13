@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_1;UNITY_4_0;UNITY_STANDALONE_WIN;ENABLE_PROFILER;UNITY_EDITOR</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_1_3;UNITY_4_1;ENABLE_PROFILER;UNITY_EDITOR</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -55,13 +55,14 @@
      <Compile Include="Assets\Scripts\Inventario\Loot.js" />
      <Compile Include="Assets\Scripts\Managers\Dialogos\ManagerDialogos1.js" />
      <Compile Include="Assets\Scripts\Managers\Dialogos\ManagerDialogos1_5.js" />
+     <Compile Include="Assets\Scripts\Managers\Dialogos\ManagerDialogos2.js" />
      <Compile Include="Assets\Scripts\Managers\IEvent_manager.js" />
-     <Compile Include="Assets\Scripts\Managers\Inventario.js" />
+     <Compile Include="Assets\Scripts\Managers\InventarioManager.js" />
      <Compile Include="Assets\Scripts\Managers\LevelManager\Manager1.js" />
      <Compile Include="Assets\Scripts\Managers\LevelManager\Manager1_5.js" />
      <Compile Include="Assets\Scripts\Managers\LevelManager\Manager2.js" />
      <Compile Include="Assets\Scripts\Managers\LootManager1_5.js" />
-     <Compile Include="Assets\Scripts\Managers\MenuScript.js" />
+     <Compile Include="Assets\Scripts\Managers\MenuManager.js" />
      <Compile Include="Assets\Scripts\Managers\Player_Manager.js" />
      <Compile Include="Assets\Scripts\Managers\ScreenManager(Deprecated).js" />
      <Compile Include="Assets\Scripts\MoverClick.js" />

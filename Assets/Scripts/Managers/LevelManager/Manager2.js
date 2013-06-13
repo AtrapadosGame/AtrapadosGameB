@@ -7,7 +7,7 @@ private var managerDialogos: ManagerDialogos1_5;
 private var playerManager : Player_Manager;
 private var lootManager : LootManager1_5;
 private var persistance : Persistance;
-private var inventario : Inventario;
+private var inventario : InventarioManager;
 
 private var puzzle : Puzzle;
 //Texturas
@@ -46,7 +46,7 @@ GameObject.Find("Diana").renderer.enabled = false;
 playerManager = GetComponent(Player_Manager);
 managerDialogos = GetComponent(ManagerDialogos1_5);
 lootManager = GetComponent(LootManager1_5);
-inventario = GetComponent(Inventario);
+inventario = GetComponent(InventarioManager);
 persistance = GameObject.Find("Persistance").GetComponent(Persistance);
 puzzle = GetComponent(Puzzle);
 
@@ -84,41 +84,13 @@ function EventSwitch(comando : String){
 //Implementación de la función IEventDialog
 function EventDialog(idResultado : int){
 
-switch(idResultado){
-
-case ManagerDialogos1_5.NEGACION:
-
-break;
-case ManagerDialogos1_5.ACEPTACION_DIANA:
-//GameObject.Find("Persistance").GetComponent(Persistance).addPlayer(new Player(texturaCuadroDiana,Player_Manager.DIANA, "Diana" , texturaCursorDiana));
-playerManager.addPlayer(new Player(texturaCuadroDiana,Player_Manager.DIANA, "Diana" , texturaCursorDiana));
-break;
-
-case ManagerDialogos1_5.ACEPTACION_MARIO:
-//GameObject.Find("Persistance").GetComponent(Persistance).addPlayer(new Player(texturaCuadroMario,Player_Manager.MARIO, "Mario" , texturaCursorMario));
-playerManager.addPlayer(new Player(texturaCuadroMario,Player_Manager.MARIO, "Mario" , texturaCursorMario));
-break;
-
-case ManagerDialogos1_5.ACEPTACION_FRANCISCO:
-playerManager.addPlayer(new Player(texturaCuadroFrancisco,Player_Manager.FRANCISCO, "Francisco" , texturaCursorFrancisco));
-//GameObject.Find("Persistance").GetComponent(Persistance).addPlayer(new Player(texturaCuadroFrancisco,Player_Manager.FRANCISCO, "Francisco" , texturaCursorFrancisco));
-
-break;
-
-case ManagerDialogos1_5.DIALOGO_ARMARIO1:
-GetComponent(LootManager1_5).empezarLoot(LootManager1_5.LOOT_ARMARIO1);
-break;
-
-case ManagerDialogos1_5.DIALOGO_ARMARIO2:
-GetComponent(LootManager1_5).empezarLoot(LootManager1_5.LOOT_ARMARIO2);
-break;
 
 
 }
 
 
 		
-}
+
 
 
 

@@ -14,7 +14,7 @@ private var ancho : int;
 private var alto : int;
 private var separacion : int;
 private var pausa :boolean = false;
-
+private var botonesHabilitados: boolean = true;
 //Establece el estilo que se usara en los botones
 var customSkin: GUISkin;
 //Texturas de los botones del menu
@@ -55,8 +55,9 @@ GUI.skin = customSkin;
 		}
 	}
 	 //Dibuja el boton de pausa
+	 	if(botonesHabilitados){
     if(GUI.Button (new Rect (Screen.width - 64,0,64,64),GUIContent (menu,"Button"))){
-    	if(!pausa){
+    	if(!pausa && botonesHabilitados){
     		Time.timeScale=0;
     		pausa = true;
 		}
@@ -64,6 +65,7 @@ GUI.skin = customSkin;
 		Time.timeScale=1;
 			pausa = false;
 	}
+    }
     }
 	
 	
@@ -93,10 +95,25 @@ GUI.skin = customSkin;
         GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
         }
     }
+function setPausado(p : boolean) {
 
+pausa = p;
+
+}
 
 function estaPausado():boolean {
 
 return pausa;
+
+}
+
+function setBotonesHabilitado(botones : boolean) {
+
+botonesHabilitados = botones;
+
+}
+function estaBotonesHabilitado():boolean {
+
+return botonesHabilitados;
 
 }
