@@ -14,7 +14,7 @@ private var hijo2 : NodoDialogo;
 private var hijo3 : NodoDialogo;
 
 //En caso de ser el ultimo nodo tiene un resultado de la conversacion
-private var resultado: int;
+private var resultado: int = -1;
 
 // ================================================================================
 // Constructores

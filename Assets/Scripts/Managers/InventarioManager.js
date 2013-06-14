@@ -21,6 +21,9 @@ public static final var CUERDA : int = 5;
 public static final var TIJERAS : int = 6;
 public static final var LLAVE  :int= 7;
 public static final var PALANCA  :int= 8;
+public static final var BALDE  :int= 9;
+public static final var BALDE_LLENO  :int= 10;
+public static final var CRUCETA  :int= 11;
 
 
 
@@ -79,7 +82,7 @@ for(var i:int = 0 ; i <4 ; i++){
 	if (itemsActuales[i])
 		
 	if (itemsActuales[i].getId() == idItem){
-		usarItem(idItem);
+		
 		return  true;
 
 	}

@@ -82,15 +82,13 @@ var manager : GameObject;
 
 var customSkin: GUISkin;
 var texturaDiana : Texture2D;
-var texturaCristina : Texture2D;
-var texturaDario: Texture2D;
+
 var texturaMario: Texture2D;
 var texturaFrancisco: Texture2D;
 var texturaFabio: Texture2D;
 
 var texturaDianaSombreada : Texture2D;
-var texturaCristinaSombreada : Texture2D;
-var texturaDarioSombreada: Texture2D;
+
 var texturaMarioSombreada: Texture2D;
 var texturaFranciscoSombreada: Texture2D;
 var texturaFabioSombreada: Texture2D;
@@ -117,38 +115,40 @@ public static final var MONOLOGO_FUSIBLES  :int= 13; // CUANDO SE HABLA A LA CAJ
 public static final var MONOLOGO_CAJA  :int= 14; // CUANDO SE HABLA A LA CAJA DE FUSIBLES
 //P4
 public static final var CONVERSACION_CURAR_PERSONA_EXITO  :int= 15; //SE CURA Y SE LE COBRA A LA PERSONA, SE TIENE A !!!DIANA!! Y !!BOTIQUIN!!
-public static final var CONVERSACION_CURAR_PERSONA_NEGACION  :int= 15; //SE CURA Y SE LE COBRA A LA PERSONA, SE TIENE A !!!DIANA!! Y !!BOTIQUIN!!
-public static final var CONVERSACION_ROBAR_PERSONA_EXITO  :int= 16; //SE ROBA A LA PERSONA SE TIENE A !!!!!FABIO!!!
-public static final var CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO  :int= 17; //SE HABLA A LA PERSONA HERIDA CON !!!MARIO!!
-public static final var CONVERSACION_ROBAR_PERSONA_NEGACION  :int= 18; //SE HABLA A LA PERSONA HERIDA CON CUALQUIERA
+public static final var CONVERSACION_CURAR_PERSONA_NEGACION  :int= 16; //NO SE CURA Y SE LE COBRA A LA PERSONA, SE TIENE A !!!DIANA!! PERO NO EL !!BOTIQUIN!!
+public static final var CONVERSACION_ROBAR_PERSONA_EXITO  :int= 17; //SE ROBA A LA PERSONA SE TIENE A !!!!!FABIO!!!
+public static final var CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO  :int= 18; //SE HABLA A LA PERSONA HERIDA CON !!!MARIO!!
+public static final var CONVERSACION_ROBAR_PERSONA_NEGACION  :int= 19; //SE HABLA A LA PERSONA HERIDA CON CUALQUIERA
 //P5
-public static final var CONVERSACION_CONVENCER_FILA_NEGACION  :int= 19; // SE HABLA A LA FILA SIN RESULTADO
-public static final var CONVERSACION_CONVENCER_FILA_NEGACION_MARIO  :int= 20; // SE HABLA A LA FILA CON !!!!MARIO@!!!
-public static final var CONVERSACION_CONVENCER_FILA_EXITO  :int= 21; // SE HABLA A LA FILA DESPUES DE HABER AYUDADO AL AMIGO
+public static final var CONVERSACION_CONVENCER_FILA_NEGACION  :int= 20; // SE HABLA A LA FILA SIN RESULTADO
+public static final var CONVERSACION_CONVENCER_FILA_NEGACION_MARIO  :int= 21; // SE HABLA A LA FILA CON !!!!MARIO@!!!
+public static final var CONVERSACION_CONVENCER_FILA_EXITO  :int= 22; // SE HABLA A LA FILA DESPUES DE HABER AYUDADO AL AMIGO
 
-public static final var CONVERSACION_DESPERTAR_NEGACION_MARIO  :int= 22; // SE HABLA AL MAN DORMIDO CON !!!MARIO!!!
-public static final var CONVERSACION_DESPERTAR_NEGACION  :int= 23; // SE HABLA AL MAN DORMIDO SIN RESULTADO
-public static final var CONVERSACION_DESPERTAR_EXITO  :int= 24; // SE HABLA AL MAN DORMIDO DESPUES DE DESPERTARLO
-public static final var CONVERSACION_DESPERTAR_NEGACION_CARRO  :int= 25; // SE HABLA AL CARRO PARA DESPERTAR AL MAN, PERO NO SE TIENE A NADIE UTIL
-public static final var CONVERSACION_DESPERTAR_NEGACION_CARRO_MARIO  :int= 26; // SE HABLA AL CARRO PARA DESPERTAR AL MAN, CON !!!MARIO!!!
-public static final var CONVERSACION_DESPERTAR_EXITO_CARRO :int= 27; // SE HABLA AL CARRO PARA DESPERTAR AL MAN, CON !!!MARIO!!!
-public static final var CONVERSACION_DESPERTAR_BALDE :int= 28; // SE HABLA AL BALDE 
-public static final var CONVERSACION_DESPERTAR_BALDE_MARIO :int= 29; // SE HABLA AL BALDE CON !!!MARIO!!!
-public static final var CONVERSACION_DESPERTAR_BALDE_GRIFO_EXITO :int= 30; // SE HABLA AL GRIFO TENIENDO EL BALDE
-public static final var CONVERSACION_DESPERTAR_BALDE_GRIFO_NEGACION :int= 31; // SE HABLA AL GRIFO SIN TENER EL BALDE
-public static final var CONVERSACION_DESPERTAR_BALDE_GRIFO_NEGACION_MARIO :int= 32; // SE HABLA AL GRIFO SIN TENER EL BALDE CON !!!MARIO!!!
-public static final var CONVERSACION_DESPERTAR_BALDE_EXITO :int= 33; // SE HABLA MAN CON EL BALDE
+public static final var CONVERSACION_DESPERTAR_NEGACION_MARIO  :int= 23; // SE HABLA AL MAN DORMIDO CON !!!MARIO!!!
+public static final var CONVERSACION_DESPERTAR_NEGACION  :int= 24; // SE HABLA AL MAN DORMIDO SIN RESULTADO
+public static final var CONVERSACION_DESPERTAR_EXITO  :int= 25; // SE HABLA AL MAN DORMIDO DESPUES DE DESPERTARLO
+public static final var CONVERSACION_DESPERTAR_NEGACION_CARRO  :int= 26; // SE HABLA AL CARRO PARA DESPERTAR AL MAN, PERO NO SE TIENE A NADIE UTIL
+public static final var CONVERSACION_DESPERTAR_NEGACION_CARRO_MARIO  :int= 27; // SE HABLA AL CARRO PARA DESPERTAR AL MAN, CON !!!MARIO!!!
+public static final var CONVERSACION_DESPERTAR_EXITO_CARRO :int= 28; // SE HABLA AL CARRO PARA DESPERTAR AL MAN, !!FRANCISCO!!!
+public static final var CONVERSACION_DESPERTAR_BALDE :int= 29; // SE HABLA AL BALDE 
+public static final var CONVERSACION_DESPERTAR_BALDE_MARIO :int= 30; // SE HABLA AL BALDE CON !!!MARIO!!!
+public static final var CONVERSACION_DESPERTAR_BALDE_GRIFO_EXITO :int= 31; // SE HABLA AL GRIFO TENIENDO EL BALDE
+public static final var CONVERSACION_DESPERTAR_BALDE_GRIFO_NEGACION :int= 32; // SE HABLA AL GRIFO SIN TENER EL BALDE
+public static final var CONVERSACION_DESPERTAR_BALDE_GRIFO_NEGACION_MARIO :int= 33; // SE HABLA AL GRIFO SIN TENER EL BALDE CON !!!MARIO!!!
+public static final var CONVERSACION_DESPERTAR_BALDE_EXITO :int= 34; // SE HABLA MAN CON EL BALDE
 
 //P6
-public static final var MONOLOGO_CRUCETA_CARRO_NEGACION :int= 34; // SE HABLA AL CARRO QUE TIENE CRUCETA SIN NADIE
-public static final var MONOLOGO_CRUCETA_CARRO_NEGACION_MARIO :int= 35; // SE HABLA AL CARRO QUE TIENE CRUCETA CON !!!!MARIO!!
-public static final var MONOLOGO_CRUCETA_CARRO_EXITO_FRANCISCO :int= 36; // SE HABLA AL CARRO QUE TIENE CRUCETA CON !!FRANCISCO!! Y SE LOGRA ABRIR
-public static final var MONOLOGO_CRUCETA_CARRO_EXITO :int= 37; // SE HABLA A UN CARRO ABIERTO 
+public static final var MONOLOGO_CRUCETA_CARRO_NEGACION :int= 35; // SE HABLA AL CARRO QUE TIENE CRUCETA SIN NADIE
+public static final var MONOLOGO_CRUCETA_CARRO_NEGACION_MARIO :int= 36; // SE HABLA AL CARRO QUE TIENE CRUCETA CON !!!!MARIO!!
+public static final var MONOLOGO_CRUCETA_CARRO_EXITO_FRANCISCO :int= 37; // SE HABLA AL CARRO QUE TIENE CRUCETA CON !!FRANCISCO!! Y SE LOGRA ABRIR
+public static final var MONOLOGO_CRUCETA_CARRO_EXITO :int= 38; // SE HABLA A UN CARRO ABIERTO 
 
 
 
 
+////////////Resultados
 
+public static final var RESULTADO_FUSIBLES :int= 0; // SE HABLA A UN CARRO ABIERTO 
 
 
 
@@ -159,8 +159,26 @@ public static final var MONOLOGO_CRUCETA_CARRO_EXITO :int= 37; // SE HABLA A UN 
 
 function Start(){
 
+ inicializacionMonologoNegacionCarteraMario();
  inicializacionMonologoExitoCarteraFrancisco();	
  inicializacionMonologoExitoCarteraFabio();	
+ inicializacionConversacionConvencerExitoMario();	
+ inicializacionConversacionConvencerExitoFabio();	
+ inicializacionConversacionConvencerExitoFabio2();	
+ inicializacionMonologoHabitacionNegacionMario();	
+ inicializacionMonologoMarioFusibles();	
+ inicializacionConversacionCurarPersonaExito();	
+ inicializacionConversacionCurarPersonaNegacion();	
+ inicializacionConversacionRobarPersonaExito();	
+ inicializacionConversacionRobarPersonaNegacionMario();	
+ inicializacionConversacionConvencerFilaNegacionMario();	
+ inicializacionConversacionDespertarNegacionMario();	
+ inicializacionConversacionDespertarNegacionCarroMario();	
+ inicializacionConversacionDespertarExitoCarro();	
+ inicializacionConversacionDespertarBaldeMario();	
+ inicializacionConversacionDespertarBaldeGrifoNegacionMario();	
+ inicializacionMonologoCrucetaCarroNegacionMario();	
+ inicializacionMonologoCrucetaCarroExitoFrancisco();	
 
 }
 
@@ -852,7 +870,7 @@ monologoNegacionCartera = new ArbolConversacion(texturaPlayer,null,null,null);
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Bitch no puedo abrir",1);
+var l: LineaDialogo = new LineaDialogo("Esta carro esta cerrado",1);
 dialogos.Push(l);
 
 
@@ -864,19 +882,19 @@ monologoNegacionCartera.setRaiz(nodoRaiz);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function inicializacionMonologoNegacionCarteraMario(){
 
-monologoNegacionCarteraFrancisco = new ArbolConversacion(texturaMario,null,null,null);
+monologoNegacionCarteraMario = new ArbolConversacion(texturaMario,null,null,null);
 /**
 * Nodo Raiz
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Bitch I have no idea what im doing but i know more than you",1);
+var l: LineaDialogo = new LineaDialogo("Este es el carro de la directora del departamente, ella tiene mucho dinero.",1);
 dialogos.Push(l);
 
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
-monologoNegacionCarteraFrancisco.setRaiz(nodoRaiz);
+monologoNegacionCarteraMario.setRaiz(nodoRaiz);
 }
 
 
@@ -889,7 +907,7 @@ monologoNegacionCarteraFrancisco = new ArbolConversacion(texturaPlayer,null,null
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Bitch francsico es un choro, tal vez el podria abrirla",1);
+var l: LineaDialogo = new LineaDialogo("Hay una cartera alli, pero el carro esta cerrado, tal vez Francisco pueda abrir este carro",1);
 dialogos.Push(l);
 
 
@@ -909,7 +927,7 @@ monologoNegacionCarteraFabio = new ArbolConversacion(texturaPlayer,null,null,nul
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Bitch Con la pala fabio podria abrirlo",1);
+var l: LineaDialogo = new LineaDialogo("Hay una cartera alli, pero el carro esta cerrado, con algo de fuerza y una pala se podria romper la ventana",1);
 dialogos.Push(l);
 
 
@@ -929,7 +947,7 @@ monologoExitoCarteraFrancisco = new ArbolConversacion(texturaFrancisco,null,null
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Bitch Soy Francisco, un choro y la abro",1);
+var l: LineaDialogo = new LineaDialogo("Francisco abre el carro y roba el dinero de la cartera",1);
 dialogos.Push(l);
 
 
@@ -947,7 +965,7 @@ monologoExitoCarteraFabio = new ArbolConversacion(texturaFabio,null,null,null);
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Bitch soy fabio y rompo la ventana y robo la cartera usando la pala",1);
+var l: LineaDialogo = new LineaDialogo("Fabio rompe la ventana del carro usando la pala",1);
 dialogos.Push(l);
 
 
@@ -993,14 +1011,16 @@ conversacionConvencerExitoMario = new ArbolConversacion(texturaMario,null,null,n
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("que max???",1);
+var l: LineaDialogo = new LineaDialogo("El colmo esto!!, no nos quieren dejar salir",1);
 dialogos.Push(l);
 
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
 dialogos  = new Array();
-l = new LineaDialogo("Soy mario y los convenzo de que se revolquen",1);
+l = new LineaDialogo("Soy mario y los convenzo de que se revelen",1);
+dialogos.Push(l);
+l = new LineaDialogo("Listo revelemonos!!!",2);
 dialogos.Push(l);
 var nodoOp1:NodoDialogo = new NodoDialogo(dialogos);
 nodoRaiz.setHijo1(nodoOp1);
@@ -1008,8 +1028,10 @@ nodoRaiz.setHijo1(nodoOp1);
 dialogos  = new Array();
 l = new LineaDialogo("Soy mario y los convenzo de que me presten plata",1);
 dialogos.Push(l);
+l = new LineaDialogo("Bueno pero despues nos paga",2);
+dialogos.Push(l);
 var nodoOp2:NodoDialogo = new NodoDialogo(dialogos);
-nodoRaiz.setHijo1(nodoOp2);
+nodoRaiz.setHijo2(nodoOp2);
 
 
 conversacionConvencerExitoMario.setRaiz(nodoRaiz);
@@ -1023,14 +1045,16 @@ conversacionConvencerExitoFabio = new ArbolConversacion(texturaFabio,null,null,n
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("que max???",1);
+var l: LineaDialogo = new LineaDialogo("Que tal este celador!!. No nos quiere dejar salir",1);
 dialogos.Push(l);
 
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
 dialogos  = new Array();
-l = new LineaDialogo("Soy Fabio y los convenzo de que se revolquen por que tengo armas",1);
+l = new LineaDialogo("Soy Fabio y los convenzo de que se revelen por que tengo armas",1);
+dialogos.Push(l);
+l = new LineaDialogo("Si, revelemonos, tenemos que salir de este lugar ",2);
 dialogos.Push(l);
 var nodoOp1:NodoDialogo = new NodoDialogo(dialogos);
 nodoRaiz.setHijo1(nodoOp1);
@@ -1038,8 +1062,10 @@ nodoRaiz.setHijo1(nodoOp1);
 dialogos = new Array();
 l = new LineaDialogo("Soy fabio y los amenazo para q me den plata",1);
 dialogos.Push(l);
+ l = new LineaDialogo("Uy esta bien, tenga la plata pero no nos pegue",2);
+ dialogos.Push(l);
 var nodoOp2:NodoDialogo = new NodoDialogo(dialogos);
-nodoRaiz.setHijo1(nodoOp2);
+nodoRaiz.setHijo2(nodoOp2);
 
 
 conversacionConvencerExitoFabio.setRaiz(nodoRaiz);
@@ -1053,12 +1079,12 @@ conversacionConvencerExitoFabio2 = new ArbolConversacion(texturaFabio,null,null,
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("que max???",1);
+var l: LineaDialogo = new LineaDialogo("Que tal este celador!!. No nos quiere dejar salir",1);
 dialogos.Push(l);
- l = new LineaDialogo("bn",2);
+l = new LineaDialogo("Soy fabio y los amenazo para que me den plata",1);
+dialogos.Push(l);
+ l = new LineaDialogo("Uy esta bien, tenga la plata pero no nos pegue",2);
  dialogos.Push(l);
-l = new LineaDialogo("Soy fabio y los amenazo para q me den plata",1);
-dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -1123,7 +1149,7 @@ var dialogos : Array = new Array();
 var l: LineaDialogo = new LineaDialogo("En las oficinas hay un mapa de estos fusibles",1);
 dialogos.Push(l);
 
-var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, RESULTADO_FUSIBLES);
 
 monologoMarioFusibles.setRaiz(nodoRaiz);
 }
@@ -1140,7 +1166,7 @@ var dialogos : Array = new Array();
 var l: LineaDialogo = new LineaDialogo("Estos fusibles pueden prender la luz del cuarto ",1);
 dialogos.Push(l);
 
-var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, RESULTADO_FUSIBLES);
 
 monologoFusibles.setRaiz(nodoRaiz);
 }
@@ -1275,7 +1301,7 @@ conversacionRobarPersonaNegacion.setRaiz(nodoRaiz);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function inicializacionConversacionConvencerFilaNegacion( texturaPlayer : Texture2D){
 
-conversacionRobarPersonaNegacion = new ArbolConversacion(texturaPlayer,null,null,null);
+conversacionConvencerFilaNegacion = new ArbolConversacion(texturaPlayer,null,null,null);
 /**
 * Nodo Raiz
 * 
@@ -1283,10 +1309,16 @@ conversacionRobarPersonaNegacion = new ArbolConversacion(texturaPlayer,null,null
 var dialogos : Array = new Array();
 var l: LineaDialogo = new LineaDialogo("Hay mucha gente haciendo fila",1);
 dialogos.Push(l);
+ l = new LineaDialogo("No encontramos a nuestro amigo",2);
+dialogos.Push(l);
+ l = new LineaDialogo("El celador no nos deja salir por que no se unen a nosotros en la revuelta",1);
+dialogos.Push(l);
+ l = new LineaDialogo("Esta bien pero primero necesitamos encontrar a nuestro amigo Pedro",1);
+dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
-conversacionRobarPersonaNegacion.setRaiz(nodoRaiz);
+conversacionConvencerFilaNegacion.setRaiz(nodoRaiz);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1336,7 +1368,7 @@ conversacionDespertarNegacionMario = new ArbolConversacion(texturaMario,null,nul
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Este tipo esta dormido podriamos despertarlo de varias maneras, un balde de agua o con mucho ruido",1);
+var l: LineaDialogo = new LineaDialogo("Este tipo es Pedro, esta dormido, pero podriamos despertarlo de varias maneras: un balde de agua o con mucho ruido",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -1414,9 +1446,9 @@ conversacionDespertarNegacionCarroMario.setRaiz(nodoRaiz);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\
-function inicializacionConversacionDespertarExitoCarro( texturaPlayer : Texture2D ){
+function inicializacionConversacionDespertarExitoCarro( ){
 
-conversacionDespertarExitoCarro = new ArbolConversacion(texturaPlayer,null,null,null);
+conversacionDespertarExitoCarro = new ArbolConversacion(texturaFrancisco,null,null,null);
 /**
 * Nodo Raiz
 * 

@@ -216,7 +216,7 @@ currentPlayer = playerManager.getCurrentPlayer();
 		
 		//SI se tiene la llave en el inventario
 		if(inventario.enInventario(InventarioManager.LLAVE)){
-			
+			inventario.usarItem(InventarioManager.LLAVE);
 			var puerta : GameObject = GameObject.Find("Puerta");
 			puerta.audio.Play();
 			yield WaitForSeconds(0.5);
@@ -330,7 +330,7 @@ if(comando.Equals("Cristina")){
 	if(currentPlayer.getId() == Player_Manager.DIANA){//Si se tiene a diana seleccionada
 	
 	if(inventario.enInventario(InventarioManager.BOTIQUIN)){
-		
+		inventario.usarItem(InventarioManager.BOTIQUIN);
 		//Curan exitosamente a cristina
 		currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
 		cinematica2 = true;

@@ -35,12 +35,18 @@ var texturaCuadroDiana : Texture2D;
 var texturaCuadroMario : Texture2D;
 var texturaCuadroFrancisco : Texture2D;
 
+
+
+var texturaBalde: Texture2D;
+var texturaBaldeLleno: Texture2D;
+var texturaCruceta: Texture2D;
 // ================================================================================
 // Flags
 // ================================================================================
 
-
+private var flagDespertarAmigo: boolean = false;
 private var contadorDinero : int  = 0;
+private var contadorConvencidos: int = 0;
 
 // ================================================================================
 // Awake
@@ -50,7 +56,7 @@ function Awake () {
 GameObject.Find("Diana").renderer.enabled = false;
 	GameObject.Find("Diana").collider.enabled = false;
 GameObject.Find("Diana").renderer.enabled = false;
-	GameObject.Find("Mario").collider.enabled = false;
+	GameObject.Find("Mario").collider.enabled = false;	
 	GameObject.Find("Mario").renderer.enabled = false;
 	GameObject.Find("Francisco").collider.enabled = false;
 	GameObject.Find("Francisco").renderer.enabled = false;
@@ -81,7 +87,7 @@ for(var i:int = 0 ; i <tempPlayers.Length ; i++){
 // Triggers
 // ================================================================================
 //Implementación de la función Trigger()
-function EventTrigger(objName : String){
+function EventTrigger(comando : String){
 	if(comando.Equals("HabitacionOscura")){
 		if(currentPlayer.getId() == Player_Manager.MARIO){
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_HABITACION_NEGACION_MARIO);
@@ -100,31 +106,36 @@ function EventSwitch(comando : String){
 	
 	if(comando.Equals("Cartera")){
 	
-	if(inventario.enInventario(InventarioManager.PALA)){
-	
-		if(currentPlayer.getId() == Player_Manager.FABIO){
-			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_EXITO_CARTERA_FABIO);
-			contadorDinero++;
-			
-		}else{
-			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA_FABIO);
+		if(currentPlayer.getId() == Player_Manager.MARIO){
+			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA_MARIO);
+		
 		}
+		else if(inventario.enInventario(InventarioManager.PALA)){
+	
+			if(currentPlayer.getId() == Player_Manager.FABIO){
+				inventario.usarItem(InventarioManager.PALA);
+				managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_EXITO_CARTERA_FABIO);
+				contadorDinero++;
+					
+			}else{
+				managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA_FABIO);
+			}
 	
 		
-	}else if(playerManager.estaPersonaje(Player_Manager.FRANCISCO)){
+		}else if(playerManager.estaPersonaje(Player_Manager.FRANCISCO)){
 	
-		if(currentPlayer.getId() == Player_Manager.FRANCISCO){
-			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_EXITO_CARTERA_FRANCISCO);
-			contadorDinero++;
+			if(currentPlayer.getId() == Player_Manager.FRANCISCO){
+				managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_EXITO_CARTERA_FRANCISCO);
+				contadorDinero++;
+			}
+			else{
+				managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA_FRANCISCO);
+			}
+	
+		}else{
+	
+			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA);
 		}
-		else{
-			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA_FRANCISCO);
-		}
-	
-	}else{
-	
-		managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA);
-	}
 	
 	
 	}
@@ -145,7 +156,7 @@ function EventSwitch(comando : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_EXITO_MARIO);
 		
 		}else{
-			managerDialogos.empezarDialogos(CONVERSACION_CONVENCER_NEGACION);
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_NEGACION);
 		
 		}
 	
@@ -159,7 +170,7 @@ function EventSwitch(comando : String){
 		}else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_FUSIBLES);
 		}
-		puzzle.empezarPuzzle();
+		
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -177,20 +188,137 @@ function EventSwitch(comando : String){
 			
 			
 			if(inventario.enInventario(InventarioManager.BOTIQUIN)){
-				manejadorDialogos.empezarDialogo(CONVERSACION_CURAR_PERSONA_EXITO);
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_EXITO);
 				contadorDinero++;
 					
 			}
 			else{
-					manejadorDialogos.empezarDialogo(CONVERSACION_CURAR_PERSONA_NEGACION);
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_NEGACION);
 			}
 		}else if (currentPlayer.getId() ==Player_Manager.MARIO){
-			manejadorDialogos.empezarDialogo(CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
 		}else if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
 		
-			manejadorDialogos.empezarDialogo(CONVERSACION_ROBAR_PERSONA_EXITO);
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_EXITO);
+		}
+	
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	if(comando.Equals("Fila")){
+	
+		if(flagDespertarAmigo){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_FILA_EXITO);
+			contadorConvencidos++;
+		}
+		else{
+			if(currentPlayer.getId() ==Player_Manager.MARIO){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_FILA_NEGACION_MARIO);
+			}else{
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_FILA_NEGACION);
+			}
+			
+		}
+	
+	}
+	
+	/////////////////////////////////////////////////////////////////////////////////////////
+	if(comando.Equals("Dormido")){
+	
+		if(flagDespertarAmigo){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_EXITO);
+			
+		
+		}
+		else if(inventario.enInventario(InventarioManager.BALDE_LLENO)){
+			inventario.usarItem(InventarioManager.BALDE_LLENO);
+			inventario.addItem(new Item(texturaBalde,InventarioManager.BALDE,"Balde"));
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_BALDE_EXITO);
+		
+			flagDespertarAmigo = true;
+		}
+		else if(currentPlayer.getId() ==Player_Manager.MARIO){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_NEGACION_MARIO);
+		
+		
+		
+		}else{
+		
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_NEGACION);
+		
 		}
 	}
+	/////////////////////////////////////////////////////////////////////////////////////////
+	if(comando.Equals("Balde")){
+	
+		if(currentPlayer.getId() ==Player_Manager.MARIO){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_BALDE_MARIO);
+		
+		}else{
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_BALDE);
+			inventario.addItem(new Item(texturaBalde,InventarioManager.BALDE,"Balde"));
+		
+		}
+	}
+	
+	/////////////////////////////////////////////////////////////////////////////////////////
+	if(comando.Equals("Grifo")){
+		
+		if(inventario.enInventario(InventarioManager.BALDE)){
+			inventario.usarItem(InventarioManager.BALDE);
+			inventario.addItem(new Item(texturaBaldeLleno,InventarioManager.BALDE_LLENO,"BaldeLleno"));
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_BALDE_GRIFO_EXITO);
+		}
+		else if(currentPlayer.getId() ==Player_Manager.MARIO){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_BALDE_GRIFO_NEGACION_MARIO);
+		}
+		else{
+		
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_BALDE_GRIFO_NEGACION);
+		} 
+		
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////
+	if(comando.Equals("AlarmaCarro")){
+	
+	 	if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
+	 
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_EXITO_CARRO);
+			flagDespertarAmigo = true;
+	 	}else if(currentPlayer.getId() ==Player_Manager.MARIO){
+	 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_NEGACION_CARRO_MARIO);
+	 	
+	 	}else{
+	 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_NEGACION_CARRO);
+	 	}
+	
+	}
+	
+	/////////////////////////////////////////////////////////////////////////////////////////
+	if(comando.Equals("CrucetaCarro")){
+		if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
+			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CRUCETA_CARRO_EXITO_FRANCISCO);	
+			inventario.addItem(new Item(texturaCruceta,InventarioManager.CRUCETA,"Cruceta"));
+		}
+		else if(currentPlayer.getId() ==Player_Manager.MARIO){
+			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CRUCETA_CARRO_NEGACION_MARIO);
+			
+				
+		}else{
+			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CRUCETA_CARRO_NEGACION);
+		
+		
+		}
+	
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////
+	if(comando.Equals("CrucetaCarro")){
+		inventario.addItem(new Item(texturaCruceta,InventarioManager.CRUCETA,"Cruceta"));
+		managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CRUCETA_CARRO_EXITO);
+		
+	}	
 }
 
 // ================================================================================
@@ -199,8 +327,19 @@ function EventSwitch(comando : String){
 //Se llama como resultado(al finalizar) de un dialogo, no todos los dialogos tiene resultado*
 //Implementación de la función IEventDialog
 function EventDialog(idResultado : int){
+	
+	
+	switch(idResultado){
+
+	case ManagerDialogos2.RESULTADO_FUSIBLES:
+
+		puzzle.empezarPuzzle();
+		break;
 
 
+
+
+	}
 
 }
 
