@@ -131,6 +131,11 @@ function EventTrigger(objName : String){
 		der.audio.Play();
 		//managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_WORLD3);
 		playerManager.addPlayer(new Player(texturaCuadroFabio,Player_Manager.FABIO, "Fabio" , texturaCursorFabio));
+			var pl : GameObject = GameObject.Find("Fabio");
+	pl.AddComponent(MoverClick);
+	
+	pl.renderer.enabled = false;
+	pl.collider.enabled = false;
 		
 		
 	}
@@ -297,7 +302,11 @@ if(comando.Equals("Escombros")){
 		cinematica1 = false;
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_DIANA2);
 		playerManager.addPlayer(new Player(texturaCuadroDiana,Player_Manager.DIANA, "Diana" , texturaCursorDiana));
-		
+		var pl : GameObject = GameObject.Find("Diana");
+		pl.AddComponent(MoverClick);
+		pl.GetComponent(Interactor_Click).FlagOff();
+		pl.renderer.enabled = false;
+		pl.collider.enabled = false;
 		Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
 		GameObject.Find("AuxilioTrigger").GetComponent(Interactor_Trigger).apagar();
 		
@@ -333,6 +342,11 @@ if(comando.Equals("Cristina")){
 		//Cristina se unio
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_WORLD5);
 		playerManager.addPlayer(new Player(texturaCuadroCristina,Player_Manager.CRISTINA, "Cristina" , texturaCursorCristina));
+		pl  = GameObject.Find("Cristina");
+		pl.AddComponent(MoverClick);
+		pl.GetComponent(Interactor_Click).FlagOff();
+		pl.renderer.enabled = false;
+		pl.collider.enabled = false;
 				GameObject.Find("Cristina").GetComponent(Interactor_Click).FlagOff();
 		
 		Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);

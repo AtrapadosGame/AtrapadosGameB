@@ -3,8 +3,8 @@
 
 private var mover:boolean = false;// Determina la posibilidad de moverse o no
 private var targetPosition:Vector3;//Posición a la cual moverse
-var speed:float; // Determina la velocidad de movimiento
-var bounceDistance: float;
+var speed:float = 1.5; // Determina la velocidad de movimiento
+var bounceDistance: float = 0.5;
 
 
 function Awake(){
