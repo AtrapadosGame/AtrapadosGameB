@@ -146,10 +146,12 @@ public static final var MONOLOGO_CRUCETA_CARRO_EXITO :int= 38; // SE HABLA A UN 
 
 
 
+
 ////////////Resultados
 
 public static final var RESULTADO_FUSIBLES :int= 0; // SE HABLA A UN CARRO ABIERTO 
-
+public static final var RESULTADO_CONVENCER_REVUELTA = 1;
+public static final var RESULTADO_AMENAZAR = 2;
 
 
 
@@ -1022,7 +1024,7 @@ l = new LineaDialogo("Soy mario y los convenzo de que se revelen",1);
 dialogos.Push(l);
 l = new LineaDialogo("Listo revelemonos!!!",2);
 dialogos.Push(l);
-var nodoOp1:NodoDialogo = new NodoDialogo(dialogos);
+var nodoOp1:NodoDialogo = new NodoDialogo(dialogos, RESULTADO_CONVENCER_REVUELTA);
 nodoRaiz.setHijo1(nodoOp1);
 
 dialogos  = new Array();
@@ -1030,7 +1032,7 @@ l = new LineaDialogo("Soy mario y los convenzo de que me presten plata",1);
 dialogos.Push(l);
 l = new LineaDialogo("Bueno pero despues nos paga",2);
 dialogos.Push(l);
-var nodoOp2:NodoDialogo = new NodoDialogo(dialogos);
+var nodoOp2:NodoDialogo = new NodoDialogo(dialogos, RESULTADO_AMENAZAR);
 nodoRaiz.setHijo2(nodoOp2);
 
 
@@ -1056,7 +1058,7 @@ l = new LineaDialogo("Soy Fabio y los convenzo de que se revelen por que tengo a
 dialogos.Push(l);
 l = new LineaDialogo("Si, revelemonos, tenemos que salir de este lugar ",2);
 dialogos.Push(l);
-var nodoOp1:NodoDialogo = new NodoDialogo(dialogos);
+var nodoOp1:NodoDialogo = new NodoDialogo(dialogos,RESULTADO_CONVENCER_REVUELTA );
 nodoRaiz.setHijo1(nodoOp1);
 
 dialogos = new Array();
@@ -1064,7 +1066,7 @@ l = new LineaDialogo("Soy fabio y los amenazo para q me den plata",1);
 dialogos.Push(l);
  l = new LineaDialogo("Uy esta bien, tenga la plata pero no nos pegue",2);
  dialogos.Push(l);
-var nodoOp2:NodoDialogo = new NodoDialogo(dialogos);
+var nodoOp2:NodoDialogo = new NodoDialogo(dialogos,RESULTADO_AMENAZAR);
 nodoRaiz.setHijo2(nodoOp2);
 
 
