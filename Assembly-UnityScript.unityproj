@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\Managers\MenuManager.js" />
      <Compile Include="Assets\Scripts\Managers\Player_Manager.js" />
      <Compile Include="Assets\Scripts\Managers\ScreenManager(Deprecated).js" />
+     <Compile Include="Assets\Scripts\MoverCamara.js" />
      <Compile Include="Assets\Scripts\MoverClick.js" />
      <Compile Include="Assets\Scripts\MoverInput(Deprecated).js" />
      <Compile Include="Assets\Scripts\MoverInput2(Deprecated).js" />
