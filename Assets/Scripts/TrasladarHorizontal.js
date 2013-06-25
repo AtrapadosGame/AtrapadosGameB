@@ -14,3 +14,7 @@ function activar(){
 function desactivar(){
 	mover = false;
 }
+
+function setVelocidad(velocidad : float){
+	vel = velocidad;
+}

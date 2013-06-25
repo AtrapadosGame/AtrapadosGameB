@@ -66,13 +66,11 @@ function SetTargetPosition(nTarget : Vector3){
 
 function MoverOff(){
 	targetPosition = Vector3.zero;
-	print("se desactiva movimiento");
 	mover = false;
 	SendMessage("StopAnim");
 }
 
 function MoverOn(){
-print("se activa movimiento");
 	mover = true;
 }
 

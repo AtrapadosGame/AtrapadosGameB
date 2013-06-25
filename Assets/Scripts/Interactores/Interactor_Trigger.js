@@ -13,3 +13,7 @@ function OnTriggerEnter (other : Collider) {
 function apagar(){
 encendido = false;
 }
+
+function encender(){
+encendido = true;
+}

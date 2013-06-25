@@ -1,4 +1,5 @@
 #pragma strict
+
 //Ojo, para evitar problemas en el nivel 1.5:
 
 
@@ -35,18 +36,19 @@ var texturaCuadroDiana : Texture2D;
 var texturaCuadroMario : Texture2D;
 var texturaCuadroFrancisco : Texture2D;
 
+
+// ================================================================================
+// Awake
+// ================================================================================
 function Awake () {
 //Inicializacion de los managers y demas scripts
-playerManager = GetComponent(Player_Manager);;
+playerManager = GetComponent(Player_Manager);
 managerDialogos = GetComponent(ManagerDialogos1_5);
 lootManager = GetComponent(LootManager1_5);
 inventario = GetComponent(InventarioManager);
 persitance = GameObject.Find("Persistance").GetComponent(Persistance);
-
-playerManager.addPlayer(new Player(texturaCuadroFabio,Player_Manager.FABIO, "Fabio" , texturaCursorFabio));
-
+playerManager.addPlayer(new Player(texturaCuadroCristina,Player_Manager.DARIO, "Cristina" , texturaCursorCristina));
 }
-
 
 // ================================================================================
 // Trigger
@@ -62,22 +64,22 @@ function EventTrigger(objName : String){
 // ================================================================================
 //Imlementación de la funcion Switch()
 function EventSwitch(comando : String){
-
+	
 	if(comando.Equals("Diana")){
 	
 	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_DIANA);
 	
 	}
 	
-	if(comando.Equals("Dario")){
+	if(comando.Equals("Fabio")){
 	
-	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_DARIO);
+	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_FABIO);
 	
 	}
 	
-	if(comando.Equals("Cristina")){
+	if(comando.Equals("Dario")){
 	
-	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_CRISTINA);
+	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_DARIO);
 	
 	}
 	
@@ -110,8 +112,6 @@ function EventSwitch(comando : String){
 	}
 	
 }
-
-
 // ================================================================================
 // EventDialog
 // ================================================================================

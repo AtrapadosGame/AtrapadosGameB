@@ -85,7 +85,7 @@ if(!pausa){
 	
 	}
 }
-//TODO
+
 function WindowFunction (windowID : int) {
 GUI.Label(new Rect(ventana.width/2,10,ancho,alto), "Loot");
 for(var i:int = 0 ; i <lootActual.getItems().Length ; i++){
