@@ -286,6 +286,7 @@ GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(Mov
 }
 function empezarDialogos(idConversacion:int ){
 GetComponent(MenuManager).setBotonesHabilitado(false);
+
 print("empezarDialogos");
 var texturaPlayer:Texture2D;
 apagarMovimiento();
