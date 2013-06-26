@@ -2,10 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\LevelManager\Manager2.js">
     <Files>
-      <File FileName="Assets\Scripts\Managers\Dialogos\ManagerDialogos2.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Managers\LevelManager\Manager2.js" Line="394" Column="22" />
-      <File FileName="Assets\Scripts\Dialogos\NodoDialogo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interactores\Interactor_Click.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Managers\LevelManager\Manager2.js" Line="124" Column="54" />
+      <File FileName="Assets\Scripts\Managers\Dialogos\ManagerDialogos2.js" Line="906" Column="119" />
+      <File FileName="Assets\Scripts\Managers\InventarioManager.js" Line="115" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

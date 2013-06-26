@@ -104,20 +104,21 @@ function EventTrigger(comando : String){
 function EventSwitch(comando : String){
 	currentPlayer = playerManager.getCurrentPlayer();
 	
+	if(comando.Equals("Celador")){
+		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CELADOR);
+		GameObject.Find("Celador").GetComponent(Interactor_Click).FlagOff();
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 	if(comando.Equals("Cartera")){
 	
 		if(currentPlayer.getId() == Player_Manager.MARIO){
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA_MARIO);
-		
 		}
 		else if(currentPlayer.getId() == Player_Manager.FRANCISCO){
 				managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_EXITO_CARTERA_FRANCISCO);
 				contadorDinero++;
 				GameObject.Find("CarroCartera").GetComponent(Interactor_Click).FlagOff();
 		}
-		
-		
-		
 		else if(inventario.enInventario(InventarioManager.PALA)){
 	
 			if(currentPlayer.getId() == Player_Manager.FABIO){
@@ -141,8 +142,6 @@ function EventSwitch(comando : String){
 	
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA);
 		}
-	
-	
 	}
 	///////////////////////////////////////////////////////////////////////////////////
 	if(comando.Equals("Grupo")){

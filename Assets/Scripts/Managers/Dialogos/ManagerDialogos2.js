@@ -4,6 +4,7 @@ private var dialogosActivos : boolean;
 private var enOpcion: boolean = false;
 //P1
 private var conversacionActual : ArbolConversacion;
+private var conversacionCelador : ArbolConversacion;
 private var monologoNegacionCartera : ArbolConversacion;
 private var monologoNegacionCarteraMario : ArbolConversacion;//mario
 private var monologoNegacionCarteraFrancisco : ArbolConversacion;
@@ -93,6 +94,9 @@ var texturaMarioSombreada: Texture2D;
 var texturaFranciscoSombreada: Texture2D;
 var texturaFabioSombreada: Texture2D;
 
+var texturaCelador: Texture2D;
+var texturaCeladorSombreada: Texture2D;
+
 
 //P1
 public static final var MONOLOGO_NEGACION_CARTERA  :int= 0;//NO SE TIENE NADA
@@ -142,7 +146,7 @@ public static final var MONOLOGO_CRUCETA_CARRO_NEGACION :int= 35; // SE HABLA AL
 public static final var MONOLOGO_CRUCETA_CARRO_NEGACION_MARIO :int= 36; // SE HABLA AL CARRO QUE TIENE CRUCETA CON !!!!MARIO!!
 public static final var MONOLOGO_CRUCETA_CARRO_EXITO_FRANCISCO :int= 37; // SE HABLA AL CARRO QUE TIENE CRUCETA CON !!FRANCISCO!! Y SE LOGRA ABRIR
 public static final var MONOLOGO_CRUCETA_CARRO_EXITO :int= 38; // SE HABLA A UN CARRO ABIERTO 
-
+public static final var CONVERSACION_CELADOR :int= 39;// Hablar por primera vez con el celador
 
 
 
@@ -290,6 +294,7 @@ if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 function empezarDialogos(idConversacion:int ){
 print("empezarDialogos");
 var texturaPlayer:Texture2D;
+var texturaPlayerSombreada:Texture2D;
 GetComponent(MenuManager).setBotonesHabilitado(false);
 
 switch(idConversacion){
@@ -298,6 +303,32 @@ switch(idConversacion){
 
 
 /////////////////////////P1
+case CONVERSACION_CELADOR:
+
+if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.FABIO)
+		{
+			texturaPlayer=texturaFabio;
+			texturaPlayerSombreada=texturaFabioSombreada;
+		}
+		else if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.DIANA)
+		{
+			texturaPlayer=texturaDiana;
+			texturaPlayerSombreada=texturaDianaSombreada;
+		}
+		else if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.MARIO)
+		{
+			texturaPlayer=texturaMario;
+			texturaPlayerSombreada=texturaMarioSombreada;
+		}
+		else if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.FRANCISCO)
+		{
+			texturaPlayer=texturaFrancisco;
+			texturaPlayerSombreada=texturaFranciscoSombreada;
+		}
+		inicializacionConversacionCelador(texturaPlayer, texturaPlayerSombreada);
+		conversacionActual = conversacionCelador;
+break;
+
 case MONOLOGO_NEGACION_CARTERA:
 
 if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.FABIO)
@@ -872,7 +903,7 @@ monologoNegacionCartera = new ArbolConversacion(texturaPlayer,null,null,null);
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Esta carro esta cerrado",1);
+var l: LineaDialogo = new LineaDialogo("Alguien dejó una cartera allí, pero el carro está totalmente cerrado, ni modo.",1);
 dialogos.Push(l);
 
 
@@ -890,7 +921,7 @@ monologoNegacionCarteraMario = new ArbolConversacion(texturaMario,null,null,null
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Este es el carro de la directora del departamente, ella tiene mucho dinero.",1);
+var l: LineaDialogo = new LineaDialogo("Este parece el carro de la directora del departamento. Se que ella suele cargar mucho dinero.",1);
 dialogos.Push(l);
 
 
@@ -909,7 +940,7 @@ monologoNegacionCarteraFrancisco = new ArbolConversacion(texturaPlayer,null,null
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Hay una cartera alli, pero el carro esta cerrado, tal vez Francisco pueda abrir este carro",1);
+var l: LineaDialogo = new LineaDialogo("Alguien dejó una cartera allí. ¿No mencionó Francisco que el sabía abrir cerraduras?",1);
 dialogos.Push(l);
 
 
@@ -929,7 +960,7 @@ monologoNegacionCarteraFabio = new ArbolConversacion(texturaPlayer,null,null,nul
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Hay una cartera alli, pero el carro esta cerrado, con algo de fuerza y una pala se podria romper la ventana",1);
+var l: LineaDialogo = new LineaDialogo("Alguien dejó una cartera en este carro. Tal vez pueda romper el vidrio con algo fuerte...",1);
 dialogos.Push(l);
 
 
@@ -949,7 +980,7 @@ monologoExitoCarteraFrancisco = new ArbolConversacion(texturaFrancisco,null,null
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Francisco abre el carro y roba el dinero de la cartera",1);
+var l: LineaDialogo = new LineaDialogo("Muy bien, si queremos salir de aquí, tendremos que hacerlo a las malas.",1);
 dialogos.Push(l);
 
 
@@ -967,7 +998,7 @@ monologoExitoCarteraFabio = new ArbolConversacion(texturaFabio,null,null,null);
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Fabio rompe la ventana del carro usando la pala",1);
+var l: LineaDialogo = new LineaDialogo("Tendremos que hacer esto a las malas",1);
 dialogos.Push(l);
 
 
@@ -1649,3 +1680,31 @@ monologoCrucetaCarroExito.setRaiz(nodoRaiz);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function inicializacionConversacionCelador(texturaPlayer : Texture2D, texturaPlayerSombreada : Texture2D ){
+
+conversacionCelador = new ArbolConversacion(texturaPlayer, texturaCelador,texturaPlayerSombreada,texturaCeladorSombreada);
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("¿Qué  pasa aquí? ¿Por qué nadie sale?",1);
+dialogos.Push(l);
+l = new LineaDialogo("Detengase ahí. Nadie sale sin el comprobante de pago",2);
+dialogos.Push(l);
+l = new LineaDialogo("¿De que demonios está hablando?",1);
+dialogos.Push(l);
+l = new LineaDialogo("El pago, amigo. Recivieron servicios en el hospital, y tienen que pagar por ellos",2);
+dialogos.Push(l);
+l = new LineaDialogo("No sea tan ridículo ¿No se da cuenta que el edificio se está cayendo?",1);
+dialogos.Push(l);
+l = new LineaDialogo("No voy a permitir que saquen excusas para robarle al hospital, que solo está aqui\n para prestarles un servicio. Sin el comprobante de pago nadie sale.",2);
+dialogos.Push(l);
+l = new LineaDialogo("Este hombre está completamente loco. Hay que pagar esa cuota de alguna forma, o tratar de buscar otra salida",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionCelador.setRaiz(nodoRaiz);
+}

@@ -112,9 +112,7 @@ for(var i:int = 0 ; i <4 ; i++){
 	if (itemsActuales[i])
 		
 	if (itemsActuales[i].getId() == idItem){
-		usarItem(idItem);
 		return  true;
-
 	}
 
 }
