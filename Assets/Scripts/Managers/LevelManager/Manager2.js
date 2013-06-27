@@ -45,6 +45,7 @@ var texturaCruceta: Texture2D;
 // ================================================================================
 
 private var flagDespertarAmigo: boolean = false;
+private var flagHablarCelador: boolean = false;
 private var contadorDinero : int  = 0;
 private var contadorConvencidos: int = 0;
 
@@ -81,21 +82,29 @@ for(var i:int = 0 ; i <tempPlayers.Length ; i++){
 }
 
 }
-
-
 // ================================================================================
 // Triggers
 // ================================================================================
 //Implementación de la función Trigger()
 function EventTrigger(comando : String){
+	currentPlayer = playerManager.getCurrentPlayer();
 	if(comando.Equals("HabitacionOscura")){
 		if(currentPlayer.getId() == Player_Manager.MARIO){
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_HABITACION_NEGACION_MARIO);
+			GameObject.Find("HabitacionOscura").GetComponent(Interactor_Trigger).encender();
 		}else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_HABITACION_NEGACION);
+			GameObject.Find("HabitacionOscura").GetComponent(Interactor_Trigger).encender();
 		}
 	}
-	
+	if(comando.Equals("SolucionCorrecta")){
+		Destroy(GameObject.Find("HabitacionOscura"));
+		Destroy(GameObject.Find("HabitacionTigger"));
+		GameObject.Find("Fusibles").GetComponent(Interactor_Click).FlagOff();
+	}
+	if(comando.Equals("SolucionIncorrecta")){
+		managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_FUSIBLES_INCORRECTO);
+	}
 }
 // ================================================================================
 // Switch
@@ -107,65 +116,65 @@ function EventSwitch(comando : String){
 	if(comando.Equals("Celador")){
 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CELADOR);
 		GameObject.Find("Celador").GetComponent(Interactor_Click).FlagOff();
+		flagHablarCelador = true;
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	if(comando.Equals("Cartera")){
-	
-		if(currentPlayer.getId() == Player_Manager.MARIO){
-			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA_MARIO);
-		}
-		else if(currentPlayer.getId() == Player_Manager.FRANCISCO){
-				managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_EXITO_CARTERA_FRANCISCO);
-				contadorDinero++;
-				GameObject.Find("CarroCartera").GetComponent(Interactor_Click).FlagOff();
-		}
-		else if(inventario.enInventario(InventarioManager.PALA)){
-	
-			if(currentPlayer.getId() == Player_Manager.FABIO){
-				inventario.usarItem(InventarioManager.PALA);
-				managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_EXITO_CARTERA_FABIO);
-				contadorDinero++;
-				GameObject.Find("CarroCartera").GetComponent(Interactor_Click).FlagOff();
-					
-			}else{
-				managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA_FABIO);
+		if(flagHablarCelador){
+			if(currentPlayer.getId() == Player_Manager.MARIO){
+				managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA_MARIO);
 			}
+			else if(currentPlayer.getId() == Player_Manager.FRANCISCO){
+					managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_EXITO_CARTERA_FRANCISCO);
+					contadorDinero++;
+					GameObject.Find("CarroCartera").GetComponent(Interactor_Click).FlagOff();
+			}
+			else if(inventario.enInventario(InventarioManager.PALA)){
+	
+				if(currentPlayer.getId() == Player_Manager.FABIO){
+					inventario.usarItem(InventarioManager.PALA);
+					managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_EXITO_CARTERA_FABIO);
+					contadorDinero++;
+					GameObject.Find("CarroCartera").GetComponent(Interactor_Click).FlagOff();
+					
+				}else{
+					managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA_FABIO);
+				}
 	
 		
-		}else if(playerManager.estaPersonaje(Player_Manager.FRANCISCO)){
+			}else if(playerManager.estaPersonaje(Player_Manager.FRANCISCO)){
 	
 			
 				managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA_FRANCISCO);
-			
-	
-		}else{
-	
+			}
+		}
+		else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA);
 		}
 	}
 	///////////////////////////////////////////////////////////////////////////////////
 	if(comando.Equals("Grupo")){
-		print("entroa grupo");
-		if(currentPlayer.getId() == Player_Manager.FABIO){
+		if(flagHablarCelador){
+			if(currentPlayer.getId() == Player_Manager.FABIO){
 	
-			if(inventario.enInventario(InventarioManager.LLAVE)|| inventario.enInventario(InventarioManager.EXTINTOR)){
+				if(inventario.enInventario(InventarioManager.LLAVE)|| inventario.enInventario(InventarioManager.EXTINTOR)){
 		
-				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_EXITO_FABIO);
-			}else{
-				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_EXITO_FABIO2);
-				contadorDinero++;
-				GameObject.Find("GrupoSalida").GetComponent(Interactor_Click).FlagOff();
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_EXITO_FABIO);
+				}else{
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_EXITO_FABIO2);
+					contadorDinero++;
+					GameObject.Find("PersonaPeleando1").GetComponent(Interactor_Click).FlagOff();
+					GameObject.Find("PersonaPeleando2").GetComponent(Interactor_Click).FlagOff();
+					GameObject.Find("PersonaPeleando3").GetComponent(Interactor_Click).FlagOff();
+				}
+	
+			}else if (currentPlayer.getId() == Player_Manager.MARIO){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_EXITO_MARIO);
 			}
-	
-		}else if (currentPlayer.getId() == Player_Manager.MARIO){
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_EXITO_MARIO);
-		
-		}else{
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_NEGACION);
-		
 		}
-	
-	
+		else{
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_NEGACION);
+		}
 	}
 	
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -398,19 +407,8 @@ function EventDialog(idResultado : int){
 		contadorDinero++;
 		GameObject.Find("GrupoSalida").GetComponent(Interactor_Click).FlagOff();
 	break;
-	
-
-
 	}
-
 }
-
-
-		
-
-
-
-
 
 function DarCinematica(index : int){
 	return cinematicas[index];

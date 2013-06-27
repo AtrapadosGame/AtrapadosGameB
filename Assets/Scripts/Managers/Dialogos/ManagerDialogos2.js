@@ -11,6 +11,7 @@ private var monologoNegacionCarteraFrancisco : ArbolConversacion;
 private var monologoNegacionCarteraFabio : ArbolConversacion;
 private var monologoExitoCarteraFrancisco : ArbolConversacion;//francisco
 private var monologoExitoCarteraFabio : ArbolConversacion;//fabio
+private var monologoFusiblesIncorrecto : ArbolConversacion;
 //P2
 
 private var conversacionConvencerNegacion : ArbolConversacion;//Cualquiera lo dice
@@ -82,20 +83,21 @@ var manager : GameObject;
 
 
 var customSkin: GUISkin;
-var texturaDiana : Texture2D;
 
+var texturaDiana : Texture2D;
 var texturaMario: Texture2D;
 var texturaFrancisco: Texture2D;
 var texturaFabio: Texture2D;
+var texturaCelador: Texture2D;
+var texturaGrupo: Texture2D;
 
 var texturaDianaSombreada : Texture2D;
-
 var texturaMarioSombreada: Texture2D;
 var texturaFranciscoSombreada: Texture2D;
 var texturaFabioSombreada: Texture2D;
-
-var texturaCelador: Texture2D;
 var texturaCeladorSombreada: Texture2D;
+var texturaGrupoSombreada: Texture2D;
+
 
 
 //P1
@@ -147,6 +149,7 @@ public static final var MONOLOGO_CRUCETA_CARRO_NEGACION_MARIO :int= 36; // SE HA
 public static final var MONOLOGO_CRUCETA_CARRO_EXITO_FRANCISCO :int= 37; // SE HABLA AL CARRO QUE TIENE CRUCETA CON !!FRANCISCO!! Y SE LOGRA ABRIR
 public static final var MONOLOGO_CRUCETA_CARRO_EXITO :int= 38; // SE HABLA A UN CARRO ABIERTO 
 public static final var CONVERSACION_CELADOR :int= 39;// Hablar por primera vez con el celador
+public static final var MONOLOGO_FUSIBLES_INCORRECTO  :int= 40;//Fallar el puzzle de los fusibles
 
 
 
@@ -418,20 +421,24 @@ case CONVERSACION_CONVENCER_NEGACION:
 if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.FABIO)
 		{
 			texturaPlayer=texturaFabio;
+			texturaPlayerSombreada=texturaFabioSombreada;
 		}
 		else if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.DIANA)
 		{
 			texturaPlayer=texturaDiana;
+			texturaPlayerSombreada=texturaDianaSombreada;
 		}
 		else if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.MARIO)
 		{
 			texturaPlayer=texturaMario;
+			texturaPlayerSombreada=texturaMarioSombreada;
 		}
 		else if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.FRANCISCO)
 		{
 			texturaPlayer=texturaFrancisco;
+			texturaPlayerSombreada=texturaFranciscoSombreada;
 		}
-		inicializacionConversacionConvencerNegacion(texturaPlayer);
+		inicializacionConversacionConvencerNegacion(texturaPlayer, texturaPlayerSombreada);
 		conversacionActual = conversacionConvencerNegacion;
 
 
@@ -839,6 +846,11 @@ case MONOLOGO_CRUCETA_CARRO_EXITO:
 
 break;
 
+case MONOLOGO_FUSIBLES_INCORRECTO:
+		inicializacionMonologoFusiblesIncorrecto();
+		conversacionActual = monologoFusiblesIncorrecto;
+break;
+
 /////////////////////////FIN SWITCH
 }
 
@@ -1019,15 +1031,17 @@ monologoExitoCarteraFabio.setRaiz(nodoRaiz);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function inicializacionConversacionConvencerNegacion(texturaPlayer : Texture2D){
+function inicializacionConversacionConvencerNegacion(texturaPlayer : Texture2D, texturaPlayerSombreada : Texture2D){
 
-conversacionConvencerNegacion = new ArbolConversacion(texturaPlayer,null,null,null);
+conversacionConvencerNegacion = new ArbolConversacion(texturaPlayer,texturaGrupo,texturaPlayerSombreada,texturaGrupoSombreada);
 /**
 * Nodo Raiz
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Yo no se como hablar",1);
+var l: LineaDialogo = new LineaDialogo("Esta gente parece tener sus propios problemas, mejor dejarlos en paz",1);
+dialogos.Push(l);
+l = new LineaDialogo("Déjenos salir celador abusivo",2);
 dialogos.Push(l);
 
 
@@ -1038,30 +1052,40 @@ conversacionConvencerNegacion.setRaiz(nodoRaiz);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function inicializacionConversacionConvencerExitoMario(){
 
-conversacionConvencerExitoMario = new ArbolConversacion(texturaMario,null,null,null);
+conversacionConvencerExitoMario = new ArbolConversacion(texturaMario,texturaGrupo,texturaMarioSombreada,texturaGrupoSombreada);
 /**
 * Nodo Raiz
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("El colmo esto!!, no nos quieren dejar salir",1);
+var l: LineaDialogo = new LineaDialogo("Oigan, prestenme atencion un momento",1);
+dialogos.Push(l);
+l = new LineaDialogo("Mario, pensabamos que habías muerto. ¿Puedes creer lo que este celador abusivo está haciendo?",2);
+dialogos.Push(l);
+l = new LineaDialogo("Es cierto, a este ritmo moriremos. Tenemos que hacer algo, y necesito que me ayuden",1);
+dialogos.Push(l);
+l = new LineaDialogo("¿Y qué piensas hacer?",2);
 dialogos.Push(l);
 
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
 dialogos  = new Array();
-l = new LineaDialogo("Soy mario y los convenzo de que se revelen",1);
+l = new LineaDialogo("Somos más que él, obliguémoslo a que nos deje salir",1);
 dialogos.Push(l);
-l = new LineaDialogo("Listo revelemonos!!!",2);
+l = new LineaDialogo("Mario tiene razón, si el no entinede por las buenas ¡Se lo haremos entender por las malas!",2);
 dialogos.Push(l);
 var nodoOp1:NodoDialogo = new NodoDialogo(dialogos, RESULTADO_CONVENCER_REVUELTA);
 nodoRaiz.setHijo1(nodoOp1);
 
 dialogos  = new Array();
-l = new LineaDialogo("Soy mario y los convenzo de que me presten plata",1);
+l = new LineaDialogo("Este tipo solo entiende de dinero. presteneme plata.",1);
 dialogos.Push(l);
-l = new LineaDialogo("Bueno pero despues nos paga",2);
+l = new LineaDialogo("¿Plata? Si tuvieramos dinero, hace rato hubieramos salido.",2);
+dialogos.Push(l);
+l = new LineaDialogo("¿No lo entineden? Si entre todos juntamos suficiente dinero, saldremos más rápido",1);
+dialogos.Push(l);
+l = new LineaDialogo("Tienes razón Mario. Todos, junten el dinero que tengan, ya.",2);
 dialogos.Push(l);
 var nodoOp2:NodoDialogo = new NodoDialogo(dialogos, RESULTADO_AMENAZAR);
 nodoRaiz.setHijo2(nodoOp2);
@@ -1072,31 +1096,44 @@ conversacionConvencerExitoMario.setRaiz(nodoRaiz);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function inicializacionConversacionConvencerExitoFabio(){
 
-conversacionConvencerExitoFabio = new ArbolConversacion(texturaFabio,null,null,null);
+conversacionConvencerExitoFabio = new ArbolConversacion(texturaFabio,texturaGrupo,texturaFabioSombreada,texturaGrupoSombreada);
 /**
 * Nodo Raiz
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Que tal este celador!!. No nos quiere dejar salir",1);
+var l: LineaDialogo = new LineaDialogo("¡¡¡Esto es un abuso!!!!",2);
 dialogos.Push(l);
-
+l = new LineaDialogo("Oigan, un momento ¿Que está pasando aquí?",1);
+dialogos.Push(l);
+l = new LineaDialogo("¿Qué no lo ve? Podemos morir en cualquier momento, y ese celador inepto no nos quiere dejar salir.",2);
+dialogos.Push(l);
+l = new LineaDialogo("¿Hay algún problema acaso?",1);
+dialogos.Push(l);
+l = new LineaDialogo("¡Nada! Lo único en lo que ese tipo está pensando es en cobrar la cuota del hospotal",2);
+dialogos.Push(l);
+l = new LineaDialogo("Lo que faltaba, otra persona loca. Tendremos que hacer algo.",1);
+dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
 dialogos  = new Array();
-l = new LineaDialogo("Soy Fabio y los convenzo de que se revelen por que tengo armas",1);
+l = new LineaDialogo("No tenemos que aguantar esto, somos más y tenemos armas.",1);
 dialogos.Push(l);
-l = new LineaDialogo("Si, revelemonos, tenemos que salir de este lugar ",2);
+l = new LineaDialogo("Si, este tipo tiene razón, no tenemos que aguantar más a este celador.",2);
 dialogos.Push(l);
 var nodoOp1:NodoDialogo = new NodoDialogo(dialogos,RESULTADO_CONVENCER_REVUELTA );
 nodoRaiz.setHijo1(nodoOp1);
 
 dialogos = new Array();
-l = new LineaDialogo("Soy fabio y los amenazo para q me den plata",1);
+l = new LineaDialogo("Bueno, ese es su problema, yo por mi parte... necesito que me den todo su dinero.",1);
 dialogos.Push(l);
- l = new LineaDialogo("Uy esta bien, tenga la plata pero no nos pegue",2);
- dialogos.Push(l);
+l = new LineaDialogo("¡¿Qué?!",2);
+dialogos.Push(l);
+l = new LineaDialogo("¡Lo que oyeron! No voy a quedarme aquí como un tonto sin hacer nada. ¡Me dan/n todo su dinero ahora mismo!",1);
+dialogos.Push(l);
+l = new LineaDialogo("¡Este hombre está completamente loco! Demosle el dinero a ver si nos deja en paz",2);
+dialogos.Push(l);
 var nodoOp2:NodoDialogo = new NodoDialogo(dialogos,RESULTADO_AMENAZAR);
 nodoRaiz.setHijo2(nodoOp2);
 
@@ -1106,18 +1143,24 @@ conversacionConvencerExitoFabio.setRaiz(nodoRaiz);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function inicializacionConversacionConvencerExitoFabio2( ){
 
-conversacionConvencerExitoFabio2 = new ArbolConversacion(texturaFabio,null,null,null);
+conversacionConvencerExitoFabio2 = new ArbolConversacion(texturaFabio,texturaGrupo,texturaFabioSombreada,texturaGrupoSombreada);
 /**
 * Nodo Raiz
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Que tal este celador!!. No nos quiere dejar salir",1);
+var l: LineaDialogo = new LineaDialogo("Oigan todos ustedes",1);
 dialogos.Push(l);
-l = new LineaDialogo("Soy fabio y los amenazo para que me den plata",1);
+l = new LineaDialogo("Esta es una situación grave. Podemos morir en cualquier momento, y ese celador inepto\n no nos quiere dejar salir.",2);
 dialogos.Push(l);
- l = new LineaDialogo("Uy esta bien, tenga la plata pero no nos pegue",2);
- dialogos.Push(l);
+l = new LineaDialogo("Bueno, ese es su problema, yo por mi parte... necesito que me den todo su dinero.",1);
+dialogos.Push(l);
+l = new LineaDialogo("¡¿Qué?!",2);
+dialogos.Push(l);
+l = new LineaDialogo("¡Lo que oyeron! No voy a quedarme aquí como un tonto sin hacer nada. ¡Me dan/n todo su dinero ahora mismo!",1);
+dialogos.Push(l);
+l = new LineaDialogo("¡Este hombre está completamente loco! Demosle el dinero a ver si nos deja en paz",2);
+dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -1144,9 +1187,7 @@ monologoHabitacionNegacion = new ArbolConversacion(texturaPlayer,null,null,null)
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Uy esto esta muy oscuro",1);
-
-
+var l: LineaDialogo = new LineaDialogo("Dios está muy oscuro, puede ser peligroso avanzar.",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -1157,13 +1198,15 @@ monologoHabitacionNegacion.setRaiz(nodoRaiz);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function inicializacionMonologoHabitacionNegacionMario( ){
 
-monologoHabitacionNegacionMario = new ArbolConversacion(texturaMario,null,null,null);
+monologoHabitacionNegacionMario = new ArbolConversacion(texturaFabio,texturaMario,texturaFabioSombreada,texturaMarioSombreada);
 /**
 * Nodo Raiz
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Uy la caja de fusibles tiene la luz de este cuarto",1);
+var l: LineaDialogo = new LineaDialogo("Dios, esto está muy oscuro. Es peligroso avanzar",1);
+dialogos.Push(l);
+l = new LineaDialogo("Aquí se guarda parte del dinero de las cajas registradoras. Si logramos entrar, seguro encontramos algo de dinero.",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -1179,7 +1222,7 @@ monologoMarioFusibles = new ArbolConversacion(texturaMario,null,null,null);
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("En las oficinas hay un mapa de estos fusibles",1);
+var l: LineaDialogo = new LineaDialogo("Aqui están los fusibles del cuarto de al lado. Recuerdo que en\n las oficinas guardan un mapa con la posición correcta de los fusibles.",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, RESULTADO_FUSIBLES);
@@ -1196,7 +1239,7 @@ monologoFusibles = new ArbolConversacion(texturaPlayer,null,null,null);
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Estos fusibles pueden prender la luz del cuarto ",1);
+var l: LineaDialogo = new LineaDialogo("Es una caja de fusibles. Seguro controlan la luz del cuarto de al lado ",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, RESULTADO_FUSIBLES);
@@ -1212,7 +1255,7 @@ monologoCaja = new ArbolConversacion(texturaPlayer,null,null,null);
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Aca hay dinero que podria ayudar a pagar el parqueadero ",1);
+var l: LineaDialogo = new LineaDialogo("Si, todavía hay algo de dinero aquí guardado. Estamos de suerte",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -1707,4 +1750,22 @@ dialogos.Push(l);
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
 conversacionCelador.setRaiz(nodoRaiz);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+
+function inicializacionMonologoFusiblesIncorrecto(){
+
+monologoFusiblesIncorrecto = new ArbolConversacion(texturaFabio,null,null,null);
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("No, así no es, la habitación sigue a oscuras",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+monologoFusiblesIncorrecto.setRaiz(nodoRaiz);
 }

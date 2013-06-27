@@ -54,8 +54,6 @@ SOLUCION[1,2]=true;
 SOLUCION[2,0]=false;
 SOLUCION[2,1]=false;
 SOLUCION[2,2]=true;
- 
-
 
 }
 
@@ -90,17 +88,17 @@ for(var i:int = 0 ; i <3 ; i++){
 if(GUI.Button(new Rect(ventana.width/3, (ventana.height * 3)/4, ancho, alto ), "Probar")){
 		
 		if(esSolucion()){
-		
-		print("encontro respuest");
-		//TODO...RETORNA A EL MANAGER DEL LEVEL
+			GetComponent(Manager2).EventTrigger("SolucionCorrecta");
+			puzzleActivo = false;
+			GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 		}else{
-		print("No es la respuesta");
+			GetComponent(Manager2).EventTrigger("SolucionIncorrecta");
+			puzzleActivo = false;
+			GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 		}
-		
-		}
+}
 
-if(GUI.Button(new Rect((ventana.width/9)*5, (ventana.height * 3)/4, ancho, alto ), "Cancelar")){
-		
+if(GUI.Button(new Rect((ventana.width/9)*5, (ventana.height * 3)/4, ancho, alto ), "Cancelar")){	
 		puzzleActivo = false;
 		GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();		
 		}
@@ -137,11 +135,8 @@ for(var i:int = 0 ; i <3 && !esDiferente; i++){
 		
 		 esDiferente = true;
 		 } 
-	
 	}
 }
-
-
 return !esDiferente;
 }
 
