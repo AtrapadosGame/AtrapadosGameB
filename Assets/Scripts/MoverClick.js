@@ -24,7 +24,7 @@ function Update () {
 			targetPosition = ray.GetPoint(hitdist);
 		}
 		
-		
+			
 		var relativePos = targetPosition - transform.position;
 		var rotation = Quaternion.LookRotation(relativePos);
 		
@@ -76,5 +76,11 @@ print("se activa movimiento");
 	mover = true;
 }
 
+function inicializarValores(bounce: float, speedArg : float){
+
+	bounceDistance = bounce;
+	speed= speedArg ;
+
+}
 
 

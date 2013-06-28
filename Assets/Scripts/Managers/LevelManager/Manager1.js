@@ -22,6 +22,7 @@ private var cinematica3 : boolean = false;//Cristina puerta emergencia
 // ================================================================================
 // Texturas
 // ================================================================================
+var customSkin: GUISkin;
 
 var cinematicas : Texture2D[] = new Texture2D[5];
 
@@ -77,14 +78,18 @@ function Awake () {
 // ================================================================================
 
 function OnGUI(){
+	GUI.skin = customSkin;
 	if(cinematica1){
-		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[0]);
+		GUI.Box (Rect (0,0, Screen.width, Screen.height),"");
+		GUI.Label (Rect (0,150, Screen.width, Screen.height), cinematicas[0]);
 	}
 	if(cinematica2){
-		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[1]);
+		GUI.Box (Rect (0,0, Screen.width, Screen.height),"");
+		GUI.Label (Rect (0,150, Screen.width, Screen.height), cinematicas[1]);
 	}
 	if(cinematica3){
-		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[2]);
+		GUI.Box (Rect (0,0, Screen.width, Screen.height),"");
+		GUI.Label (Rect (0,150, Screen.width, Screen.height), cinematicas[2]);
 	}
 }
 
@@ -133,7 +138,7 @@ function EventTrigger(objName : String){
 		playerManager.addPlayer(new Player(texturaCuadroFabio,Player_Manager.FABIO, "Fabio" , texturaCursorFabio));
 			var pl : GameObject = GameObject.Find("Fabio");
 	pl.AddComponent(MoverClick);
-	
+	pl.GetComponent(MoverClick).inicializarValores(0.1,1.5);
 	pl.renderer.enabled = false;
 	pl.collider.enabled = false;
 		
@@ -304,6 +309,7 @@ if(comando.Equals("Escombros")){
 		playerManager.addPlayer(new Player(texturaCuadroDiana,Player_Manager.DIANA, "Diana" , texturaCursorDiana));
 		var pl : GameObject = GameObject.Find("Diana");
 		pl.AddComponent(MoverClick);
+		pl.GetComponent(MoverClick).inicializarValores(0.1,1.5);
 		pl.GetComponent(Interactor_Click).FlagOff();
 		pl.renderer.enabled = false;
 		pl.collider.enabled = false;
@@ -344,6 +350,7 @@ if(comando.Equals("Cristina")){
 		playerManager.addPlayer(new Player(texturaCuadroCristina,Player_Manager.CRISTINA, "Cristina" , texturaCursorCristina));
 		pl  = GameObject.Find("Cristina");
 		pl.AddComponent(MoverClick);
+		pl.GetComponent(MoverClick).inicializarValores(0.1,1.5);
 		pl.GetComponent(Interactor_Click).FlagOff();
 		pl.renderer.enabled = false;
 		pl.collider.enabled = false;
