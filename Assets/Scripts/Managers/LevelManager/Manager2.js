@@ -46,6 +46,9 @@ var texturaCruceta: Texture2D;
 
 private var flagDespertarAmigo: boolean = false;
 private var flagHablarCelador: boolean = false;
+private var flagDineroCompleto: boolean = false;
+private var flagGenteCompleta: boolean = false;
+private var flagFinalDinero: boolean = false;
 private var contadorDinero : int  = 0;
 private var contadorConvencidos: int = 0;
 
@@ -82,6 +85,19 @@ for(var i:int = 0 ; i <tempPlayers.Length ; i++){
 }
 
 }
+
+function Update(){
+	if(contadorDinero == 6){
+		flagDineroCompleto = true;
+		contadorDinero = 0;
+	}
+	
+	if(contadorConvencidos == 6){
+		flagGenteCompleta = true;
+		contadorConvencidos = 0;
+		print("Gente completa");
+	}
+}
 // ================================================================================
 // Triggers
 // ================================================================================
@@ -114,9 +130,18 @@ function EventSwitch(comando : String){
 	currentPlayer = playerManager.getCurrentPlayer();
 	
 	if(comando.Equals("Celador")){
-		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CELADOR);
-		GameObject.Find("Celador").GetComponent(Interactor_Click).FlagOff();
-		flagHablarCelador = true;
+		if(!flagHablarCelador){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CELADOR);
+			flagHablarCelador = true;
+		}
+		else if(!flagDineroCompleto){
+			//Conversacion reto analógico
+		}
+		else{
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DINERO_COMPLETO);
+			flagDineroCompleto = false;
+			flagFinalDinero = true;
+		}
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	if(comando.Equals("Cartera")){
@@ -197,93 +222,103 @@ function EventSwitch(comando : String){
 	/////////////////////////////////////////////////////////////////////////////////////////
 	
 	if(comando.Equals("Herido1")){
-		
-		if(currentPlayer.getId() ==Player_Manager.DIANA){
-			
-			
-			if(inventario.enInventario(InventarioManager.BOTIQUIN)){
-				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_EXITO);
+		if(flagHablarCelador){
+			if(currentPlayer.getId() ==Player_Manager.DIANA){
+				if(inventario.enInventario(InventarioManager.BOTIQUIN)){
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_EXITO);
+					contadorDinero++;
+					GameObject.Find("Herido1").GetComponent(Interactor_Click).FlagOff();
+				}
+				else{
+						managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_NEGACION);
+				}
+			}else if (currentPlayer.getId() ==Player_Manager.MARIO){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
+			}else if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_EXITO);
 				contadorDinero++;
-					
 			}
-			else{
-					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_NEGACION);
-			}
-		}else if (currentPlayer.getId() ==Player_Manager.MARIO){
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
-		}else if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
-		
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_EXITO);
 		}
-	
+		else{
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
+		}
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////
 	
 	if(comando.Equals("Herido2")){
-		
-		if(currentPlayer.getId() ==Player_Manager.DIANA){
-			
-			
-			if(inventario.enInventario(InventarioManager.BOTIQUIN)){
-				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_EXITO);
+		if(flagHablarCelador){
+			if(currentPlayer.getId() ==Player_Manager.DIANA){
+				if(inventario.enInventario(InventarioManager.BOTIQUIN)){
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_EXITO);
+					contadorDinero++;
+					GameObject.Find("Herido2").GetComponent(Interactor_Click).FlagOff();
+				}
+				else{
+						managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_NEGACION);
+				}
+			}else if (currentPlayer.getId() ==Player_Manager.MARIO){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
+			}else if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_EXITO);
 				contadorDinero++;
-					
 			}
-			else{
-					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_NEGACION);
-			}
-		}else if (currentPlayer.getId() ==Player_Manager.MARIO){
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
-		}else if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
-		
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_EXITO);
 		}
-	
+		else{
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
+		}
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////
 	
 	if(comando.Equals("Herido3")){
-		
-		if(currentPlayer.getId() ==Player_Manager.DIANA){
-			
-			
-			if(inventario.enInventario(InventarioManager.BOTIQUIN)){
-				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_EXITO);
+		if(flagHablarCelador){
+			if(currentPlayer.getId() ==Player_Manager.DIANA){
+				if(inventario.enInventario(InventarioManager.BOTIQUIN)){
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_EXITO);
+					contadorDinero++;
+					GameObject.Find("Herido3").GetComponent(Interactor_Click).FlagOff();
+				}
+				else{
+						managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_NEGACION);
+				}
+			}else if (currentPlayer.getId() ==Player_Manager.MARIO){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
+			}else if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_EXITO);
 				contadorDinero++;
-					
 			}
-			else{
-					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_NEGACION);
-			}
-		}else if (currentPlayer.getId() ==Player_Manager.MARIO){
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
-		}else if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
-		
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_EXITO);
 		}
-	
+		else{
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
+		}
 	}
-	
-	
 	/////////////////////////////////////////////////////////////////////////////////////////
 	
 	
 	
 	if(comando.Equals("Fila")){
 	
-		if(flagDespertarAmigo){
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_FILA_EXITO);
-			contadorConvencidos++;
+		if(flagFinalDinero){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_FINAL_DINERO);
+			Application.LoadLevel("FinN2");
 		}
 		else{
-			if(currentPlayer.getId() ==Player_Manager.MARIO){
-				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_FILA_NEGACION_MARIO);
-			}else{
-				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_FILA_NEGACION);
+			if(flagDespertarAmigo){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_FILA_EXITO);
+				contadorConvencidos++;
 			}
-			
+			else{
+				if(flagHablarCelador){
+					if(currentPlayer.getId() ==Player_Manager.MARIO){
+						managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_FILA_NEGACION_MARIO);
+					}else{
+						managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_FILA_NEGACION);
+					}
+				}
+				else{
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_FILA);
+				}
+			}
 		}
-	
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -345,13 +380,13 @@ function EventSwitch(comando : String){
 	/////////////////////////////////////////////////////////////////////////////////////////
 	if(comando.Equals("AlarmaCarro")){
 	
-	 	if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
-	 
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_EXITO_CARRO);
-			flagDespertarAmigo = true;
-	 	}else if(currentPlayer.getId() ==Player_Manager.MARIO){
-	 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_NEGACION_CARRO_MARIO);
-	 	
+		if(flagHablarCelador){
+	 		if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_EXITO_CARRO);
+				flagDespertarAmigo = true;
+	 		}else if(currentPlayer.getId() ==Player_Manager.MARIO){
+	 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_NEGACION_CARRO_MARIO);
+	 		}
 	 	}else{
 	 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_NEGACION_CARRO);
 	 	}
@@ -399,13 +434,11 @@ function EventDialog(idResultado : int){
 	break;
 
 	case ManagerDialogos2.RESULTADO_CONVENCER_REVUELTA:
-		contadorConvencidos++;
-		GameObject.Find("GrupoSalida").GetComponent(Interactor_Click).FlagOff();	
+		contadorConvencidos++;	
 	break;
 	
 	case ManagerDialogos2.RESULTADO_AMENAZAR:
 		contadorDinero++;
-		GameObject.Find("GrupoSalida").GetComponent(Interactor_Click).FlagOff();
 	break;
 	}
 }
