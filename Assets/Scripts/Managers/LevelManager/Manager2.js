@@ -46,6 +46,8 @@ var texturaCruceta: Texture2D;
 
 private var flagDespertarAmigo: boolean = false;
 private var flagHablarCelador: boolean = false;
+private var flagHablarFila: boolean = false;
+private var flagGrupoConvencido: boolean = false;
 private var flagDineroCompleto: boolean = false;
 private var flagGenteCompleta: boolean = false;
 private var flagFinalDinero: boolean = false;
@@ -92,10 +94,8 @@ function Update(){
 		contadorDinero = 0;
 	}
 	
-	if(contadorConvencidos == 6){
+	if(contadorConvencidos >= 2){
 		flagGenteCompleta = true;
-		contadorConvencidos = 0;
-		print("Gente completa");
 	}
 }
 // ================================================================================
@@ -134,8 +134,11 @@ function EventSwitch(comando : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CELADOR);
 			flagHablarCelador = true;
 		}
+		else if(flagGenteCompleta && !flagDineroCompleto){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_FINAL_REVUELTA);
+		}
 		else if(!flagDineroCompleto){
-			//Conversacion reto analógico
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_FAMILIA);
 		}
 		else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DINERO_COMPLETO);
@@ -179,7 +182,7 @@ function EventSwitch(comando : String){
 	}
 	///////////////////////////////////////////////////////////////////////////////////
 	if(comando.Equals("Grupo")){
-		if(flagHablarCelador){
+		if(flagHablarCelador && !flagDespertarAmigo){
 			if(currentPlayer.getId() == Player_Manager.FABIO){
 	
 				if(inventario.enInventario(InventarioManager.LLAVE)|| inventario.enInventario(InventarioManager.EXTINTOR)){
@@ -187,15 +190,15 @@ function EventSwitch(comando : String){
 					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_EXITO_FABIO);
 				}else{
 					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_EXITO_FABIO2);
-					contadorDinero++;
-					GameObject.Find("PersonaPeleando1").GetComponent(Interactor_Click).FlagOff();
-					GameObject.Find("PersonaPeleando2").GetComponent(Interactor_Click).FlagOff();
-					GameObject.Find("PersonaPeleando3").GetComponent(Interactor_Click).FlagOff();
 				}
 	
 			}else if (currentPlayer.getId() == Player_Manager.MARIO){
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_EXITO_MARIO);
 			}
+		}
+		else if(flagDespertarAmigo){
+			if(!flagGrupoConvencido)
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_NECESITA_ARMAS);
 		}
 		else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_NEGACION);
@@ -310,8 +313,10 @@ function EventSwitch(comando : String){
 				if(flagHablarCelador){
 					if(currentPlayer.getId() ==Player_Manager.MARIO){
 						managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_FILA_NEGACION_MARIO);
+						flagHablarFila = true;
 					}else{
 						managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONVENCER_FILA_NEGACION);
+						flagHablarFila = true;
 					}
 				}
 				else{
@@ -323,28 +328,22 @@ function EventSwitch(comando : String){
 	
 	/////////////////////////////////////////////////////////////////////////////////////////
 	if(comando.Equals("Dormido")){
-	
-		if(flagDespertarAmigo){
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_EXITO);
-			
-		
+		if(flagHablarFila){
+			if(flagDespertarAmigo){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_EXITO);
+			}
+			else if(inventario.enInventario(InventarioManager.BALDE_LLENO)){
+				inventario.usarItem(InventarioManager.BALDE_LLENO);
+				inventario.addItem(new Item(texturaBalde,InventarioManager.BALDE,"Balde"));
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_BALDE_EXITO);
+				flagDespertarAmigo = true;
+			}
+			else if(currentPlayer.getId() ==Player_Manager.MARIO){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_NEGACION_MARIO);
+			}
 		}
-		else if(inventario.enInventario(InventarioManager.BALDE_LLENO)){
-			inventario.usarItem(InventarioManager.BALDE_LLENO);
-			inventario.addItem(new Item(texturaBalde,InventarioManager.BALDE,"Balde"));
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_BALDE_EXITO);
-		
-			flagDespertarAmigo = true;
-		}
-		else if(currentPlayer.getId() ==Player_Manager.MARIO){
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_NEGACION_MARIO);
-		
-		
-		
-		}else{
-		
+		else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_NEGACION);
-		
 		}
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -395,25 +394,25 @@ function EventSwitch(comando : String){
 	
 	/////////////////////////////////////////////////////////////////////////////////////////
 	if(comando.Equals("CrucetaCarro")){
-		if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
+		if(flagHablarCelador){
+			if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CRUCETA_CARRO_EXITO_FRANCISCO);	
 			inventario.addItem(new Item(texturaCruceta,InventarioManager.CRUCETA,"Cruceta"));
+			contadorConvencidos++;
+			}
+			else if(currentPlayer.getId() ==Player_Manager.MARIO){
+			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CRUCETA_CARRO_NEGACION_MARIO);	
+			}
 		}
-		else if(currentPlayer.getId() ==Player_Manager.MARIO){
-			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CRUCETA_CARRO_NEGACION_MARIO);
-			
-				
-		}else{
+		else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CRUCETA_CARRO_NEGACION);
-		
-		
 		}
-	
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////
-	if(comando.Equals("CrucetaCarro")){
+	if(comando.Equals("CrucetaCarroAbierto")){
 		inventario.addItem(new Item(texturaCruceta,InventarioManager.CRUCETA,"Cruceta"));
 		managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CRUCETA_CARRO_EXITO);
+		contadorConvencidos++;
 		
 	}	
 }
@@ -425,7 +424,6 @@ function EventSwitch(comando : String){
 //Implementación de la función IEventDialog
 function EventDialog(idResultado : int){
 	
-	
 	switch(idResultado){
 
 	case ManagerDialogos2.RESULTADO_FUSIBLES:
@@ -434,11 +432,25 @@ function EventDialog(idResultado : int){
 	break;
 
 	case ManagerDialogos2.RESULTADO_CONVENCER_REVUELTA:
-		contadorConvencidos++;	
+		contadorConvencidos++;
+		flagGrupoConvencido = true;	
 	break;
 	
 	case ManagerDialogos2.RESULTADO_AMENAZAR:
 		contadorDinero++;
+		GameObject.Find("PersonaPeleando1").GetComponent(Interactor_Click).FlagOff();
+		GameObject.Find("PersonaPeleando2").GetComponent(Interactor_Click).FlagOff();
+		GameObject.Find("PersonaPeleando3").GetComponent(Interactor_Click).FlagOff();
+	break;
+	
+	case ManagerDialogos2.RESULTADO_NADA:
+		GameObject.Find("PersonaPeleando1").GetComponent(Interactor_Click).FlagOn();
+		GameObject.Find("PersonaPeleando2").GetComponent(Interactor_Click).FlagOn();
+		GameObject.Find("PersonaPeleando3").GetComponent(Interactor_Click).FlagOn();
+	break;
+	
+	case ManagerDialogos2.RESULTADO_REVUELTA:
+		Application.LoadLevel("FinN2");
 	break;
 	}
 }
