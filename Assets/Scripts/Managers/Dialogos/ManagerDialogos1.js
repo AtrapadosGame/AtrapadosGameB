@@ -802,7 +802,9 @@ function inicializarConversacionDario1()
 	* 
 	*/
 	var dialogos : Array = new Array();
-	var l: LineaDialogo = new LineaDialogo("¡El hospital se está derrumbando, hay que salir pronto de aquí!",1);
+	var l: LineaDialogo = new LineaDialogo("Debe haber caído una bomba sobre el hospital.",1);
+	dialogos.Push(l);
+	l = new LineaDialogo("El edificio ha sufrido grandes daños ¡Hay que salir pronto de aquí!",1);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -846,7 +848,7 @@ function inicializarConversacionDario3()
 function inicializarConversacionDario4()
 {
 	 //print("Inicializa la conversacion");
-	conversacionDario4 = new ArbolConversacion(texturaDario,null,texturaDarioSombreada,null);
+	conversacionDario4 = new ArbolConversacion(texturaDario,texturaDiana,texturaDarioSombreada,texturaDianaSombreada);
 
 	/**
 	* Nodo Raiz
@@ -854,6 +856,12 @@ function inicializarConversacionDario4()
 	*/
 	var dialogos : Array = new Array();
 	var l: LineaDialogo = new LineaDialogo("¡No puedo ayudar a esta persona, no puedo levantar los escombros!",1);
+	dialogos.Push(l);
+	l = new LineaDialogo("¿Hay alguien ahí? AYUDA",2);
+	dialogos.Push(l);
+	l = new LineaDialogo("Voy a buscar ayuda, ya vuelvo ¡Tenga paciencia por favor!",1);
+	dialogos.Push(l);
+	l = new LineaDialogo("Tranquilo, le aseguro que no me voy a mover de aquí",2);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -870,7 +878,7 @@ function inicializarConversacionDario5()
 	* 
 	*/
 	var dialogos : Array = new Array();
-	var l: LineaDialogo = new LineaDialogo("¡Aquí hay alguien atrapado, seguramente Fabio podrá ayudar!",1);
+	var l: LineaDialogo = new LineaDialogo("¡Aquí es donde esa mujer está atrapada, seguramente Fabio\n podrá ayudar!",1);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -887,7 +895,7 @@ function inicializarConversacionDiana1()
 	* 
 	*/
 	var dialogos : Array = new Array();
-	var l: LineaDialogo = new LineaDialogo("¡Encontramos el botiquín! Ya podemos continuar.",1);
+	var l: LineaDialogo = new LineaDialogo("¡Aquí esta el botiquín! Ya podemos buscar a los heridos",1);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -897,16 +905,24 @@ function inicializarConversacionDiana1()
 function inicializarConversacionDiana2()
 {
 	 //print("Inicializa la conversacion");
-	conversacionDiana2 = new ArbolConversacion(texturaDiana,null,texturaDianaSombreada,null);
+	conversacionDiana2 = new ArbolConversacion(texturaDiana,texturaDario,texturaDianaSombreada,texturaDarioSombreada);
 
 	/**
 	* Nodo Raiz
 	* 
 	*/
 	var dialogos : Array = new Array();
-	var l: LineaDialogo = new LineaDialogo("¡Gracias por ayudarme! Hay gente herida, deberíamos buscar un botiquín.",1);
+	var l: LineaDialogo = new LineaDialogo("¡Gracias por ayudarme!",1);
 	dialogos.Push(l);
-	l = new LineaDialogo("¡DIANA SE HA UNIDO A TU GRUPO!",1);
+	l = new LineaDialogo("No me agradezca a mi, sino a Fabio, él fue quien levantó los escombros ¿Se encuentra usted bien?",2);
+	dialogos.Push(l);
+	l = new LineaDialogo("Si, solo estoy algo mareada. Aun así, debe haber más gente herido por ahí",1);
+	dialogos.Push(l);
+	l = new LineaDialogo("Claro que sí, debemos ayudarlos también",2);
+	dialogos.Push(l);
+	l = new LineaDialogo("Yo sé dónde están los elementos para primeros auxilios, seguramente vamos a necesitarlos",1);
+	dialogos.Push(l);
+	l = new LineaDialogo("Busquémoslos entonces",2);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -933,14 +949,16 @@ function inicializarConversacionDiana3()
 function inicializarConversacionCristina1()
 {
 	 //print("Inicializa la conversacion");
-	conversacionCristina1 = new ArbolConversacion(texturaCristina,null,texturaCristinaSombreada,null);
+	conversacionCristina1 = new ArbolConversacion(texturaCristina,texturaDario,texturaCristinaSombreada,texturaDarioSombreada);
 
 	/**
 	* Nodo Raiz
 	* 
 	*/
 	var dialogos : Array = new Array();
-	var l: LineaDialogo = new LineaDialogo("¡Gracias. Creí que iba a morir! Pero me duele mucho la pierna…",1);
+	var l: LineaDialogo = new LineaDialogo("¡Gracias. Creí que iba a morir! Pero me duele mucho el brazo…",1);
+	dialogos.Push(l);
+	l = new LineaDialogo("Está herida, pero no es tan grave. Necesito elementos de primeros auxilios para\n tratarla, debe haber en alguna parte del hospital",2);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -959,11 +977,11 @@ function inicializarConversacionFabioDario1()
 	var dialogos : Array = new Array();
 	var l: LineaDialogo = new LineaDialogo("¡Señor!  ¿Se encuentra bien?",1);
 	dialogos.Push(l);
-	l = new LineaDialogo("Si doctor, estoy bien…",2);
+	l = new LineaDialogo("Si doctor estoy bien. Estaba esperando atención cuando todo se derrumbó.",2);
 	dialogos.Push(l);
 	l = new LineaDialogo("¡Otro derrumbe! ¿Ahora que hacemos?",1);
 	dialogos.Push(l);
-	l = new LineaDialogo("No se preocupe Doctor, Yo puedo mover eso…",2);
+	l = new LineaDialogo("No se preocupe doctor, yo puedo levantar los escombros.",2);
 	dialogos.Push(l);
  	l= new LineaDialogo("¡FABIO SE HA UNIDO A TU GRUPO!",3);
 	dialogos.Push(l);
@@ -984,9 +1002,9 @@ function inicializarConversacionFabioDario2()
 	var dialogos : Array = new Array();
 	var l: LineaDialogo = new LineaDialogo("Listo, ya podemos salir.",2);
 	dialogos.Push(l);
-	l = new LineaDialogo("¡Pero hay más personas, debemos ir por ellas!",1);
+	l = new LineaDialogo("Pero hay más personas atrapadas, acompáñeme a ver que podemos hacer por ellas.",1);
 	dialogos.Push(l);
-	l = new LineaDialogo("Listo",2);
+	l = new LineaDialogo("Bien, como quiera.",2);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -1088,7 +1106,7 @@ function inicializarConversacionPlayer1(textura:Texture2D)
 	* 
 	*/
 	var dialogos : Array = new Array();
-	var l: LineaDialogo = new LineaDialogo("¡Hay una chica bajo este armario! ¡Pero no puedo moverlo!",1);
+	var l: LineaDialogo = new LineaDialogo("Hay una chica bajo este armario,  pero está demasiado pesado para moverlo",1);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -1105,7 +1123,7 @@ function inicializarConversacionPlayer2(textura:Texture2D)
 	* 
 	*/
 	var dialogos : Array = new Array();
-	var l: LineaDialogo = new LineaDialogo("¡Aquí hay alguien\n atrapado, seguramente Fabio\n podrá ayudar!",1);
+	var l: LineaDialogo = new LineaDialogo("¡Aquí hay alguien atrapado, seguramente Fabio podrá ayudar!",1);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -1156,7 +1174,7 @@ function inicializarConversacionPlayer5(textura:Texture2D)
 	* 
 	*/
 	var dialogos : Array = new Array();
-	var l: LineaDialogo = new LineaDialogo("Obvio, el ascensor no funciona. Hay que buscar otra salida.",1);
+	var l: LineaDialogo = new LineaDialogo("Aquí está el ascensor. Pero no funciona, claro, hay que buscar otra salida.",1);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -1207,7 +1225,7 @@ function inicializarConversacionPlayer8(textura:Texture2D)
 	* 
 	*/
 	var dialogos : Array = new Array();
-	var l: LineaDialogo = new LineaDialogo("¡Cristina puede\ntrepar por esa ventanilla y abrirla desde el otro lado!",1);
+	var l: LineaDialogo = new LineaDialogo("La puerta está trabada. Por esta ventanilla podríamos pasar al otro lado, tal vez Cristina pueda hacerlo.",1);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -1296,7 +1314,7 @@ function inicializarConversacionPlayer13(textura:Texture2D)
 	* 
 	*/
 	var dialogos : Array = new Array();
-	var l: LineaDialogo = new LineaDialogo("Solo las enfermeras pueden abrir estos cajones.",1);
+	var l: LineaDialogo = new LineaDialogo("La enfermera que está atrapada puede abrir estos cajones, debo rescatarla.",1);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -1330,7 +1348,7 @@ function inicializarConversacionPlayer15(textura:Texture2D)
 	* 
 	*/
 	var dialogos : Array = new Array();
-	var l: LineaDialogo = new LineaDialogo("¿Pero qué...?",1);
+	var l: LineaDialogo = new LineaDialogo("¿Que fue eso?",1);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
