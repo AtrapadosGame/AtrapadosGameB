@@ -14,7 +14,6 @@ private var lastShake : int;
 private var numTemblores : int;
 
 var timeUntilShake : int;
-var shakeTimerFactor : int;
 var countDownSeconds : int;
 
 var MainCamera : Camera;
@@ -61,7 +60,8 @@ print("esta temblando");
 function OnGUI () {
 	//make sure that your time is based on when this script was first called
 	//instead of when your game started
-	
+	var guiTime = Time.time - startTime;
+	restSeconds = countDownSeconds - (guiTime);
 	shakeTimer = Time.time - lastShake;
 	if(shakeTimer >= timeUntilShake){
 		
@@ -70,14 +70,23 @@ function OnGUI () {
 		
 		lastShake = Time.time;
 		numTemblores ++ ;
-		timeUntilShake -= (shakeTimerFactor*numTemblores);
+		if(timeUntilShake>75){
+			timeUntilShake = timeUntilShake/2;		
+		}
+		
 		
 	}
+	if(restSeconds<120){
+		
+		timeUntilShake = 30;
+	}
+
 	
-	var guiTime = Time.time - startTime;
-	restSeconds = countDownSeconds - (guiTime);
+	
+	
 	if (restSeconds == 0) {
-		Application.LoadLevel ("Game Over");
+		GUI.Label (Rect (Screen.width/2 , Screen.height/2, 100, 100), "Has Perdido");
+		gameOver();
 	}
 	
 	//display the timer
@@ -88,7 +97,7 @@ function OnGUI () {
 	var text : String = String.Format ("{0:00}:{1:00}", displayMinutes, displaySeconds);
 	var anchoLabel:int = Screen.width/8;
 	var altoLabel:int = Screen.height/8;
-	GUI.Label (Rect (Screen.width/2 - anchoLabel, 0, anchoLabel, altoLabel), text);
+	//GUI.Label (Rect (Screen.width/2 - anchoLabel, 0, anchoLabel, altoLabel), text);
 }
 
  
@@ -108,4 +117,11 @@ print("esta temblando");
 
 function getStartTime(){
 	return startTime;
+}
+function gameOver(){
+
+
+	yield WaitForSeconds(5);
+	Application.LoadLevel ("Nivel1");
+		
 }
