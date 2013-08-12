@@ -44,6 +44,7 @@ var texturaCuadroDiana : Texture2D;
 
 
 public var onPause : boolean = false;
+public var siguienteNivel : String;
 
 // ================================================================================
 // Start
@@ -415,7 +416,7 @@ switch(idResultado){
 
 case ManagerDialogos1.FINAL:
 print("fin nivel!!!!!!!!!!");
-	Application.LoadLevel("FinalN1");
+	Application.LoadLevel(siguienteNivel);
 break;
 }
 }

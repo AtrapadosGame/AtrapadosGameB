@@ -40,6 +40,8 @@ var texturaCuadroFrancisco : Texture2D;
 var texturaBalde: Texture2D;
 var texturaBaldeLleno: Texture2D;
 var texturaCruceta: Texture2D;
+
+var siguienteNivel : String;
 // ================================================================================
 // Flags
 // ================================================================================
@@ -450,7 +452,7 @@ function EventDialog(idResultado : int){
 	break;
 	
 	case ManagerDialogos2.RESULTADO_REVUELTA:
-		Application.LoadLevel("FinN2");
+		Application.LoadLevel(siguienteNivel);
 	break;
 	}
 }
