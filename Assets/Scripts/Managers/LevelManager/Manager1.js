@@ -78,13 +78,14 @@ function Awake () {
 // ================================================================================
 
 function OnGUI(){
+
 	GUI.skin = customSkin;
 	if(cinematica1){
 		GUI.Box (Rect (0,0, Screen.width, Screen.height),"");
 		GUI.Label (Rect (0,150, Screen.width, Screen.height), cinematicas[0]);
 	}
 	if(cinematica2){
-		GUI.Box (Rect (0,0, Screen.width, Screen.height),"");
+	GUI.Box (Rect (0,0, Screen.width, Screen.height),"");
 		GUI.Label (Rect (0,150, Screen.width, Screen.height), cinematicas[1]);
 	}
 	if(cinematica3){
@@ -129,18 +130,21 @@ function EventTrigger(objName : String){
 		yield WaitForSeconds(1);
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_FABIO_DARIO1);
 		//GameObject.Find("FabioTrigger").GetComponent(Interactor_Trigger).apagar();
-		yield WaitForSeconds(0.02);
+		yield WaitForSeconds(2);
 		var der = GameObject.Find("Derrumbe");
 		der.renderer.enabled = true;
 		der.collider.enabled = true;
 		der.audio.Play();
+		yield WaitForSeconds(1);
 		//managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_WORLD3);
 		playerManager.addPlayer(new Player(texturaCuadroFabio,Player_Manager.FABIO, "Fabio" , texturaCursorFabio));
-			var pl : GameObject = GameObject.Find("Fabio");
-	pl.AddComponent(MoverClick);
-	pl.GetComponent(MoverClick).inicializarValores(0.1,1.5);
-	pl.renderer.enabled = false;
-	pl.collider.enabled = false;
+		
+		var pl : GameObject = GameObject.Find("Fabio");
+		pl.AddComponent(MoverClick);
+		pl.GetComponent(MoverClick).inicializarValores(0.1,1.5);
+		pl.renderer.enabled = false;
+		pl.collider.enabled = false;	
+		
 		
 		
 	}
@@ -149,14 +153,14 @@ function EventTrigger(objName : String){
 		var fabio : boolean = playerManager.estaPersonaje(Player_Manager.FABIO);
 		var diana : boolean = playerManager.estaPersonaje(Player_Manager.DIANA);
 		var cris : boolean = playerManager.estaPersonaje(Player_Manager.CRISTINA);
-		print(fabio + " " + diana + " " + cris);
 		if(fabio && diana && cris){
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER5);
 			GameObject.Find("SalidaATrigger").GetComponent(Interactor_Trigger).apagar();
-			
+			Destroy(GameObject.Find("LuzSalidaA"));
 		}
 		else{
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER4);
+			GameObject.Find("SalidaATrigger").GetComponent(Interactor_Trigger).Reactivar();
 		}
 	}
 	
@@ -167,23 +171,22 @@ function EventTrigger(objName : String){
 		
 		if(fabio && diana && cris){
 			
-			der = GameObject.Find("Derrumbe2");
-			der.renderer.enabled = true;
-			der.collider.enabled = true;
-			der.audio.Play();
+			var der2 = GameObject.Find("Derrumbe2");
+			der2.renderer.enabled = true;
+			der2.collider.enabled = true;
+			der2.audio.Play();
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER6);
 			GameObject.Find("LuzSalidaB").transform.position = new Vector3(-10.3,0.5,-12);
-			//GameObject.Find("SalidaB").GetComponent(Interactor_Trigger).apagar();
-			
 		}
 		else{
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER4);
+			GameObject.Find("SalidaBTrigger").GetComponent(Interactor_Trigger).Reactivar();
 		}
 	}
 	
 	if(objName.Equals("Final")){
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER11);
-		Application.LoadLevel("cambio nivel");
+		
 	}
 	
 	if(objName.Equals("Fantasma")){
@@ -221,7 +224,7 @@ currentPlayer = playerManager.getCurrentPlayer();
 		
 		//SI se tiene la llave en el inventario
 		if(inventario.enInventario(InventarioManager.LLAVE)){
-			inventario.usarItem(InventarioManager.LLAVE);
+			
 			var puerta : GameObject = GameObject.Find("Puerta");
 			puerta.audio.Play();
 			yield WaitForSeconds(0.5);
@@ -310,9 +313,10 @@ if(comando.Equals("Escombros")){
 		var pl : GameObject = GameObject.Find("Diana");
 		pl.AddComponent(MoverClick);
 		pl.GetComponent(MoverClick).inicializarValores(0.1,1.5);
-		pl.GetComponent(Interactor_Click).FlagOff();
 		pl.renderer.enabled = false;
-		pl.collider.enabled = false;
+		pl.collider.enabled = false;	
+		
+		
 		Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
 		GameObject.Find("AuxilioTrigger").GetComponent(Interactor_Trigger).apagar();
 		
@@ -336,7 +340,7 @@ if(comando.Equals("Cristina")){
 	if(currentPlayer.getId() == Player_Manager.DIANA){//Si se tiene a diana seleccionada
 	
 	if(inventario.enInventario(InventarioManager.BOTIQUIN)){
-		inventario.usarItem(InventarioManager.BOTIQUIN);
+		
 		//Curan exitosamente a cristina
 		currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
 		cinematica2 = true;
@@ -348,13 +352,13 @@ if(comando.Equals("Cristina")){
 		//Cristina se unio
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_WORLD5);
 		playerManager.addPlayer(new Player(texturaCuadroCristina,Player_Manager.CRISTINA, "Cristina" , texturaCursorCristina));
-		pl  = GameObject.Find("Cristina");
-		pl.AddComponent(MoverClick);
-		pl.GetComponent(MoverClick).inicializarValores(0.1,1.5);
-		pl.GetComponent(Interactor_Click).FlagOff();
-		pl.renderer.enabled = false;
-		pl.collider.enabled = false;
-				GameObject.Find("Cristina").GetComponent(Interactor_Click).FlagOff();
+				
+		var playerCristina = GameObject.Find("Cristina");
+		playerCristina.AddComponent(MoverClick);
+		playerCristina.GetComponent(MoverClick).inicializarValores(0.1,1.5); 
+		playerCristina.GetComponent(Interactor_Click).FlagOff();
+		playerCristina.renderer.enabled = false;
+		playerCristina.collider.enabled = false;	
 		
 		Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
 
@@ -391,11 +395,28 @@ if(comando.Equals("Emergencia")){
 		currentPlayer.getGameObject().GetComponent(MoverClick).MoverOn();
 	}
 	else{
-		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER7);
+		print("Cristina no esta seleccionada");
 		if(playerManager.estaPersonaje(Player_Manager.CRISTINA)){
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER8);
+		}else{
+			print("Cristina no esta en la party");
+			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER7);
 		}
 	}
+}
+}
+
+
+//Se llama como resultado(al finalizar) de un dialogo, no todos los dialogos tiene resultado*
+//Implementación de la función IEventDialog
+function EventDialog(idResultado : int){
+print("Evento!!!!!!!!!!!!");
+switch(idResultado){
+
+case ManagerDialogos1.FINAL:
+print("fin nivel!!!!!!!!!!");
+	Application.LoadLevel("FinalN1");
+break;
 }
 }
 

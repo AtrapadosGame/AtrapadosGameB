@@ -35,7 +35,7 @@ private var conversacionPlayer12 : ArbolConversacion;
 private var conversacionPlayer13 : ArbolConversacion;
 private var conversacionPlayer14 : ArbolConversacion;
 private var conversacionPlayer15 : ArbolConversacion;
-
+private var conversacionPlayer16 : ArbolConversacion;
 
 
 
@@ -50,6 +50,7 @@ private var texturaActual1 : Texture2D;
 private var texturaActual2 : Texture2D;
 private var partyJoin : boolean = false;
 
+var manager : GameObject;
 var customSkin: GUISkin;
 var texturaDiana : Texture2D;
 var texturaCristina : Texture2D;
@@ -98,9 +99,9 @@ public static final var CONVERSACION_PLAYER12 :int= 27;
 public static final var CONVERSACION_PLAYER13 :int= 28;
 public static final var CONVERSACION_PLAYER14 :int= 29;
 public static final var CONVERSACION_PLAYER15 :int= 30;
+public static final var CONVERSACION_PLAYER16 :int= 31;
 
-
-
+public static final var FINAL :int= 1;
 
 
 
@@ -246,23 +247,22 @@ function Update(){
 
 if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 
-	print("OnMouseDown");
-		
-	print("Tiene hijos?: " +conversacionActual.getNodoActual().tieneHijos());
+	
 	
 	if(!conversacionActual.getNodoActual().estaTerminado()){
-	print("Dialogo:");
+	
 		dibujarDialogo();
 	}
 	else if(conversacionActual.getNodoActual().estaTerminado()&&conversacionActual.getNodoActual().tieneHijos()){
-		print("Opciones:");
+		
 		enOpcion = true;
 		dibujarOpcion();
 	}
 	else if(conversacionActual.getNodoActual().estaTerminado() && !conversacionActual.getNodoActual().tieneHijos()){
-		print("Fin dialogo");
+		
 		dialogosActivos = false;
 		prenderMovimiento();
+		manager.GetComponent(IEvent_manager).DialogSwitch(conversacionActual.getResultado());
 		GetComponent(MenuManager).setBotonesHabilitado(true);
 		
 	}
@@ -635,6 +635,7 @@ switch(idConversacion){
 		}
 		inicializarConversacionPlayer11(texturaPlayer);
 		conversacionActual = conversacionPlayer11;
+		dibujarDialogo();
 		
 	break;	
 		
@@ -734,6 +735,30 @@ switch(idConversacion){
 		}
 		inicializarConversacionPlayer15(texturaPlayer);
 		conversacionActual = conversacionPlayer15;
+		dibujarDialogo();
+	break;
+	
+	case CONVERSACION_PLAYER16:
+		
+		 
+		if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.DARIO)
+		{
+			texturaPlayer=texturaDario;
+		}
+		else if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.DIANA)
+		{
+			texturaPlayer=texturaDiana;
+		}
+		else if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.FABIO)
+		{
+			texturaPlayer=texturaFabio;
+		}
+		else if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.CRISTINA)
+		{
+			texturaPlayer=texturaCristina;
+		}
+//		inicializarConversacionPlayer16(texturaPlayer);
+		conversacionActual = conversacionPlayer16;
 		dibujarDialogo();
 	break;
 
@@ -1270,7 +1295,7 @@ function inicializarConversacionPlayer10(textura:Texture2D)
 
 function inicializarConversacionPlayer11(textura:Texture2D)
 {
-	 //print("Inicializa la conversacion");
+	 print("PLAYER 11!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	conversacionPlayer11 = new ArbolConversacion(textura,null,null,null);
 
 	/**
@@ -1280,7 +1305,7 @@ function inicializarConversacionPlayer11(textura:Texture2D)
 	var dialogos : Array = new Array();
 	var l: LineaDialogo = new LineaDialogo("Perfecto, una salida.",1);
 	dialogos.Push(l);
- 	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+ 	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, FINAL);
 
 	conversacionPlayer11.setRaiz(nodoRaiz);
 }

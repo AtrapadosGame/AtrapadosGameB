@@ -107,10 +107,10 @@ function EventTrigger(comando : String){
 	if(comando.Equals("HabitacionOscura")){
 		if(currentPlayer.getId() == Player_Manager.MARIO){
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_HABITACION_NEGACION_MARIO);
-			GameObject.Find("HabitacionOscura").GetComponent(Interactor_Trigger).encender();
+			GameObject.Find("HabitacionTrigger").GetComponent(Interactor_Trigger).Reactivar();
 		}else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_HABITACION_NEGACION);
-			GameObject.Find("HabitacionOscura").GetComponent(Interactor_Trigger).encender();
+			GameObject.Find("HabitacionTrigger").GetComponent(Interactor_Trigger).Reactivar();
 		}
 	}
 	if(comando.Equals("SolucionCorrecta")){

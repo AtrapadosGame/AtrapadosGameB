@@ -591,13 +591,18 @@ if(GetComponent(Player_Manager).getCurrentPlayer().getId() == Player_Manager.FAB
 		}
 		inicializacionMonologoHabitacionNegacion(texturaPlayer);
 		conversacionActual = monologoHabitacionNegacion;
+		dibujarDialogo();
 
 
 break;
+
 case MONOLOGO_HABITACION_NEGACION_MARIO:
+inicializacionMonologoHabitacionNegacionMario();
 conversacionActual = monologoHabitacionNegacionMario;
+dibujarDialogo();
 
 break;
+
 case MONOLOGO_MARIO_FUSIBLES:
 conversacionActual = monologoMarioFusibles;
 
