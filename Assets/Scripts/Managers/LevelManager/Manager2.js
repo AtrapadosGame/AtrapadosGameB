@@ -17,7 +17,7 @@ private var puzzle : Puzzle;
 // ================================================================================
 // Texturas
 // ================================================================================
-var cinematicas : Texture2D[] = new Texture2D[5];
+var cinematicas : Texture2D[] = new Texture2D[7];
 
 var texturaCursorDario : Texture2D;
 var texturaCursorCristina : Texture2D;
@@ -56,6 +56,14 @@ private var flagFinalDinero: boolean = false;
 private var contadorDinero : int  = 0;
 private var contadorConvencidos: int = 0;
 
+
+private var cinematicaBalde: boolean = false;
+private var cinematicaPala: boolean = false;
+private var cinematicaPicklock: boolean = false;
+private var cinematicaBilletera: boolean = false;
+private var cinematicaCurar: boolean = false;
+private var cinematicaEscapar: boolean = false;
+private var cinematicaPuertas: boolean = false;
 // ================================================================================
 // Awake
 // ================================================================================
@@ -98,6 +106,34 @@ function Update(){
 	
 	if(contadorConvencidos >= 2){
 		flagGenteCompleta = true;
+	}
+}
+
+//=================================================================================
+// OnGUI
+//=================================================================================
+
+function OnGUI(){
+	if(cinematicaBalde){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[0]);
+	}
+	if(cinematicaPala){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[1]);
+	}
+	if(cinematicaPicklock){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[2]);
+	}
+	if(cinematicaBilletera){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[3]);
+	}
+	if(cinematicaCurar){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[4]);
+	}
+	if(cinematicaEscapar){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[5]);
+	}
+	if(cinematicaPuertas){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[6]);
 	}
 }
 // ================================================================================
@@ -155,6 +191,11 @@ function EventSwitch(comando : String){
 				managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_NEGACION_CARTERA_MARIO);
 			}
 			else if(currentPlayer.getId() == Player_Manager.FRANCISCO){
+					GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
+					cinematicaPicklock = true;
+					yield WaitForSeconds(3);
+					cinematicaPicklock = false;
+					GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 					managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_EXITO_CARTERA_FRANCISCO);
 					contadorDinero++;
 					GameObject.Find("CarroCartera").GetComponent(Interactor_Click).FlagOff();
@@ -163,6 +204,11 @@ function EventSwitch(comando : String){
 	
 				if(currentPlayer.getId() == Player_Manager.FABIO){
 					inventario.usarItem(InventarioManager.PALA);
+					GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
+					cinematicaPala = true;
+					yield WaitForSeconds(3);
+					cinematicaPala = false;
+					GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 					managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_EXITO_CARTERA_FABIO);
 					contadorDinero++;
 					GameObject.Find("CarroCartera").GetComponent(Interactor_Click).FlagOff();
@@ -230,6 +276,11 @@ function EventSwitch(comando : String){
 		if(flagHablarCelador){
 			if(currentPlayer.getId() ==Player_Manager.DIANA){
 				if(inventario.enInventario(InventarioManager.BOTIQUIN)){
+					GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
+					cinematicaCurar = true;
+					yield WaitForSeconds(3);
+					cinematicaCurar = false;
+					GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_EXITO);
 					contadorDinero++;
 					GameObject.Find("Herido1").GetComponent(Interactor_Click).FlagOff();
@@ -240,6 +291,11 @@ function EventSwitch(comando : String){
 			}else if (currentPlayer.getId() ==Player_Manager.MARIO){
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
 			}else if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
+				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
+				cinematicaBilletera = true;
+				yield WaitForSeconds(3);
+				cinematicaBilletara = false;
+				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_EXITO);
 				contadorDinero++;
 			}
@@ -254,6 +310,11 @@ function EventSwitch(comando : String){
 		if(flagHablarCelador){
 			if(currentPlayer.getId() ==Player_Manager.DIANA){
 				if(inventario.enInventario(InventarioManager.BOTIQUIN)){
+					GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
+					cinematicaCurar = true;
+					yield WaitForSeconds(3);
+					cinematicaCurar = false;
+					GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_EXITO);
 					contadorDinero++;
 					GameObject.Find("Herido2").GetComponent(Interactor_Click).FlagOff();
@@ -264,6 +325,11 @@ function EventSwitch(comando : String){
 			}else if (currentPlayer.getId() ==Player_Manager.MARIO){
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
 			}else if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
+				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
+				cinematicaBilletera = true;
+				yield WaitForSeconds(3);
+				cinematicaBilletera = false;
+				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_EXITO);
 				contadorDinero++;
 			}
@@ -278,6 +344,11 @@ function EventSwitch(comando : String){
 		if(flagHablarCelador){
 			if(currentPlayer.getId() ==Player_Manager.DIANA){
 				if(inventario.enInventario(InventarioManager.BOTIQUIN)){
+					GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
+					cinematicaCurar = true;
+					yield WaitForSeconds(3);
+					cinematicaCurar = false;
+					GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CURAR_PERSONA_EXITO);
 					contadorDinero++;
 					GameObject.Find("Herido3").GetComponent(Interactor_Click).FlagOff();
@@ -288,6 +359,11 @@ function EventSwitch(comando : String){
 			}else if (currentPlayer.getId() ==Player_Manager.MARIO){
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
 			}else if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
+				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
+				cinematicaBilletera = true;
+				yield WaitForSeconds(3);
+				cinematicaBilletera = false;
+				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_EXITO);
 				contadorDinero++;
 			}
@@ -304,7 +380,6 @@ function EventSwitch(comando : String){
 	
 		if(flagFinalDinero){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_FINAL_DINERO);
-			Application.LoadLevel("FinN2");
 		}
 		else{
 			if(flagDespertarAmigo){
@@ -337,6 +412,11 @@ function EventSwitch(comando : String){
 			else if(inventario.enInventario(InventarioManager.BALDE_LLENO)){
 				inventario.usarItem(InventarioManager.BALDE_LLENO);
 				inventario.addItem(new Item(texturaBalde,InventarioManager.BALDE,"Balde"));
+				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
+				cinematicaBalde = true;
+				yield WaitForSeconds(3);
+				cinematicaBalde = false;
+				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_BALDE_EXITO);
 				flagDespertarAmigo = true;
 			}
@@ -383,6 +463,11 @@ function EventSwitch(comando : String){
 	
 		if(flagHablarCelador){
 	 		if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
+				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
+				cinematicaPicklock = true;
+				yield WaitForSeconds(3);
+				cinematicaPicklock = false;
+				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_EXITO_CARRO);
 				flagDespertarAmigo = true;
 	 		}else if(currentPlayer.getId() ==Player_Manager.MARIO){
@@ -398,9 +483,14 @@ function EventSwitch(comando : String){
 	if(comando.Equals("CrucetaCarro")){
 		if(flagHablarCelador){
 			if(currentPlayer.getId() ==Player_Manager.FRANCISCO){
-			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CRUCETA_CARRO_EXITO_FRANCISCO);	
-			inventario.addItem(new Item(texturaCruceta,InventarioManager.CRUCETA,"Cruceta"));
-			contadorConvencidos++;
+				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
+				cinematicaPicklock = true;
+				yield WaitForSeconds(3);
+				cinematicaPicklock = false;
+				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
+				managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CRUCETA_CARRO_EXITO_FRANCISCO);	
+				inventario.addItem(new Item(texturaCruceta,InventarioManager.CRUCETA,"Cruceta"));
+				contadorConvencidos++;
 			}
 			else if(currentPlayer.getId() ==Player_Manager.MARIO){
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CRUCETA_CARRO_NEGACION_MARIO);	

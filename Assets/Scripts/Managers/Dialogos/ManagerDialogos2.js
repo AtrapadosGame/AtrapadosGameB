@@ -2084,7 +2084,7 @@ dialogos.Push(l);
 l = new LineaDialogo("¡No! A este ritmo... vamos a quedarnos sin tiempo.",1);
 dialogos.Push(l);
 
-var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, RESULTADO_REVUELTA);
 
 conversacionFinalDinero.setRaiz(nodoRaiz);
 }
