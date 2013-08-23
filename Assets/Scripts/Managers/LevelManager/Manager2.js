@@ -294,7 +294,7 @@ function EventSwitch(comando : String){
 				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
 				cinematicaBilletera = true;
 				yield WaitForSeconds(3);
-				cinematicaBilletara = false;
+				cinematicaBilletera = false;
 				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_EXITO);
 				contadorDinero++;
