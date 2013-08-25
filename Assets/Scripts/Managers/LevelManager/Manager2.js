@@ -408,6 +408,7 @@ function EventSwitch(comando : String){
 		if(flagHablarFila){
 			if(flagDespertarAmigo){
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESPERTAR_EXITO);
+				GameObject.Find("Pedro").GetComponent(Interactor_Click).FlagOff();
 			}
 			else if(inventario.enInventario(InventarioManager.BALDE_LLENO)){
 				inventario.usarItem(InventarioManager.BALDE_LLENO);

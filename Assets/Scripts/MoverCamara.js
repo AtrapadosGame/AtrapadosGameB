@@ -8,6 +8,7 @@ private var escenaActiva : boolean = true;
 private var movimientoActivo : boolean = true;
 var timer : float[] = new float[20];
 private var indice : int;
+var siguienteNivel : String;
 
 function Start () {
 	
@@ -37,6 +38,6 @@ function Update () {
 		}
 	}
 	else{
-		Application.LoadLevel("Nivel1");
+		Application.LoadLevel(siguienteNivel);
 	}
 }
