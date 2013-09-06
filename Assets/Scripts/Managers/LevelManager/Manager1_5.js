@@ -67,31 +67,31 @@ function EventSwitch(comando : String){
 	if(comando.Equals("Diana")){
 	
 	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_DIANA);
-	
+	GameObject.Find("Diana").GetComponent(Interactor_Click).FlagOff();
 	}
 	
 	if(comando.Equals("Dario")){
 	
 	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_DARIO);
-	
+	GameObject.Find("Dario").GetComponent(Interactor_Click).FlagOff();
 	}
 	
 	if(comando.Equals("Cristina")){
 	
 	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_CRISTINA);
-	
+	GameObject.Find("Cristina").GetComponent(Interactor_Click).FlagOff();
 	}
 	
 	if(comando.Equals("Mario")){
 	
 	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_MARIO);
-	
+	GameObject.Find("Mario").GetComponent(Interactor_Click).FlagOff();
 	}
 	
 	if(comando.Equals("Francisco")){
 	
 	managerDialogos.empezarDialogos(ManagerDialogos1_5.CONVERSACION_FRANCISCO);
-	
+	GameObject.Find("Francisco").GetComponent(Interactor_Click).FlagOff();
 	}
 	if(comando.Equals("Armario 1")){
 	
