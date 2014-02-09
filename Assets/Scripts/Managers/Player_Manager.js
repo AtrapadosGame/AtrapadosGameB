@@ -80,6 +80,7 @@ ancho = (Screen.width/8) - 50;
 }
 
 function cambiarPj(id : int){
+GameObject.Find("MusicaCambiarPersonaje").audio.Play();
 	print("esta cambiando de pj");
 		var posActual = currentGO.transform.position;
 		var rotActual = currentGO.transform.rotation;

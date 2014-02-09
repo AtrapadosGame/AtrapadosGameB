@@ -86,6 +86,7 @@ for(var i:int = 0 ; i <3 ; i++){
 
 
 if(GUI.Button(new Rect(ventana.width/3, (ventana.height * 3)/4, ancho, alto ), "Probar")){
+//if(GUI.Button(new Rect(ventana.width/4, (ventana.height * 3)/5, ancho, alto ), "Probar")){
 		
 		if(esSolucion()){
 			GetComponent(Manager2).EventTrigger("SolucionCorrecta");
@@ -126,17 +127,18 @@ puzzleActivo = true;
 
 function esSolucion() : boolean{
 
-var esDiferente: boolean= false;
-for(var i:int = 0 ; i <3 && !esDiferente; i++){
-
-	for(var j:int = 0 ; j <3  && !esDiferente; j++){
-
-		if(puzzle[i,j] != SOLUCION[i,j]){
-		
-		 esDiferente = true;
-		 } 
-	}
-}
-return !esDiferente;
+//var esDiferente: boolean= false;
+//for(var i:int = 0 ; i <3 && !esDiferente; i++){
+//
+//	for(var j:int = 0 ; j <3  && !esDiferente; j++){
+//
+//		if(puzzle[i,j] != SOLUCION[i,j]){
+//		
+//		 esDiferente = true;
+//		 } 
+//	}
+//}
+//return !esDiferente;
+return true;
 }
 

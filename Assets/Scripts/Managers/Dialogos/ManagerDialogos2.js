@@ -306,6 +306,7 @@ if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 
 function empezarDialogos(idConversacion:int ){
 print("empezarDialogos");
+GameObject.Find("MusicaDialogo").audio.Play();
 var texturaPlayer:Texture2D;
 var texturaPlayerSombreada:Texture2D;
 GetComponent(MenuManager).setBotonesHabilitado(false);
@@ -528,6 +529,7 @@ break;
 
 case MONOLOGO_EXITO_CARTERA_FABIO:
 conversacionActual = monologoExitoCarteraFabio;
+dibujarDialogo();
 
 break;
 /////////////////////////////////////////P2
@@ -656,6 +658,7 @@ break;
 case CONVERSACION_CURAR_PERSONA_EXITO:
 inicializacionConversacionCurarPersonaExito();	
 conversacionActual = conversacionCurarPersonaExito;
+dibujarDialogo();
 
 break;
 case CONVERSACION_CURAR_PERSONA_NEGACION:
@@ -666,6 +669,7 @@ break;
 case CONVERSACION_ROBAR_PERSONA_EXITO:
 inicializacionConversacionRobarPersonaExito();
 conversacionActual = conversacionRobarPersonaExito;
+dibujarDialogo();
 
 break;
 case CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO:
@@ -828,6 +832,7 @@ conversacionActual = conversacionDespertarNegacionCarroMario;
 break;
 case CONVERSACION_DESPERTAR_EXITO_CARRO:
 conversacionActual = conversacionDespertarExitoCarro;
+dibujarDialogo();
 
 break;
 case CONVERSACION_DESPERTAR_BALDE:
@@ -959,6 +964,7 @@ break;
 case MONOLOGO_CRUCETA_CARRO_EXITO_FRANCISCO:
 
 		conversacionActual = monologoCrucetaCarroExitoFrancisco;
+		dibujarDialogo();
 
 break;
 
@@ -1186,7 +1192,7 @@ monologoExitoCarteraFabio = new ArbolConversacion(texturaFabio,null,null,null);
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Tendremos que hacer esto a las malas",1);
+var l: LineaDialogo = new LineaDialogo("Con el dinero de esta billetera tal vez pueda pagar la factura",1);
 dialogos.Push(l);
 
 
@@ -1306,7 +1312,7 @@ l = new LineaDialogo("Bueno, ese es su problema, yo por mi parte... necesito que
 dialogos.Push(l);
 l = new LineaDialogo("¡¿Qué?!",2);
 dialogos.Push(l);
-l = new LineaDialogo("¡Lo que oyeron! No voy a quedarme aquí como un tonto sin hacer nada. ¡Me dan/n todo su dinero ahora mismo!",1);
+l = new LineaDialogo("¡Lo que oyeron! No voy a quedarme aquí como un tonto sin hacer nada. ¡Me dan\n todo su dinero ahora mismo!",1);
 dialogos.Push(l);
 l = new LineaDialogo("¡Este hombre está completamente loco! Demosle el dinero a ver si nos deja en paz",2);
 dialogos.Push(l);
@@ -1394,9 +1400,9 @@ monologoHabitacionNegacionMario = new ArbolConversacion(texturaFabio,texturaMari
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Dios, esto está muy oscuro. Es peligroso avanzar",1);
-dialogos.Push(l);
-l = new LineaDialogo("Aquí se guarda parte del dinero de las cajas registradoras. Si logramos entrar, seguro encontramos algo de dinero.",2);
+var l: LineaDialogo = new LineaDialogo("Aquí se guarda parte del dinero de las cajas registradoras. Si logramos entrar, seguro encontramos algo de dinero.",2);
+//dialogos.Push(l);
+//l = new LineaDialogo("Aquí se guarda parte del dinero de las cajas registradoras. Si logramos entrar, seguro encontramos algo de dinero.",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -1521,7 +1527,7 @@ var l: LineaDialogo = new LineaDialogo("Al caido, caerle",1);
 dialogos.Push(l);
 l = new LineaDialogo("¿Huh? ¿Hay alguien ahí? ¡¡¡Ayuda!!!",2);
 dialogos.Push(l);
-l = new LineaDialogo("Jejeje, plata fácil",2);
+l = new LineaDialogo("Jejeje, plata fácil",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -1595,7 +1601,7 @@ dialogos.Push(l);
 dialogos.Push(l);
  l = new LineaDialogo("No queremos más problemas. Nuestro amigo Pedro ya desapareció haciendo una locura de esas.\n Nosotros solo queremos salir de aquí lo más pronto posible.",2);
 dialogos.Push(l);
-l = new LineaDialogo("Tendré que convenserlo de alguna forma. Tal vez este Pedro ayude.",1);
+l = new LineaDialogo("Tendré que convencerlo de alguna forma. Tal vez este Pedro ayude.",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -1648,7 +1654,7 @@ l = new LineaDialogo("Si, solo un poco atontado. Lo importante aquí es que quie
 dialogos.Push(l);
 l = new LineaDialogo("Ese miserable. No ha hecho más que fastidiarnos",2);
 dialogos.Push(l);
-l = new LineaDialogo("Tienen razón. No hay que agunatar esto. Vamos, vengan conmigo, pondremos un punto final\n a esta situación.",1);
+l = new LineaDialogo("Tienen razón. No hay que aguantar esto. Vamos, vengan conmigo, pondremos un punto final\n a esta situación.",1);
 dialogos.Push(l);
 l = new LineaDialogo("Si vamos, hagámoslo por Pedro.",2);
 dialogos.Push(l);
@@ -1764,7 +1770,7 @@ conversacionDespertarExitoCarro = new ArbolConversacion(texturaFrancisco,null,nu
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Eso ese, una alarma bien ruidosa para despertar al dormilon.",1);
+var l: LineaDialogo = new LineaDialogo("Eso es, una alarma bien ruidosa para despertar al dormilon.",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -1983,7 +1989,7 @@ l = new LineaDialogo("Detengase ahí. Nadie sale sin el comprobante de pago",2);
 dialogos.Push(l);
 l = new LineaDialogo("¿De que demonios está hablando?",1);
 dialogos.Push(l);
-l = new LineaDialogo("El pago, amigo. Recivieron servicios en el hospital, y tienen que pagar por ellos",2);
+l = new LineaDialogo("El pago, amigo. Recibieron servicios en el hospital, y tienen que pagar por ellos",2);
 dialogos.Push(l);
 l = new LineaDialogo("No sea tan ridículo ¿No se da cuenta que el edificio se está cayendo?",1);
 dialogos.Push(l);

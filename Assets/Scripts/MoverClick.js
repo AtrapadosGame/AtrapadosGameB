@@ -2,9 +2,10 @@
 //Mueve el objeto hacia la posición donde se hizo click con el mouse
 
 private var mover:boolean = false;// Determina la posibilidad de moverse o no
+private var sonido:boolean = false;// Determina la posibilidad de moverse o no
 private var targetPosition:Vector3;//Posición a la cual moverse
-var speed:float = 1.5; // Determina la velocidad de movimiento
-var bounceDistance: float = 0.5;
+var speed:float = 1.2; // Determina la velocidad de movimiento
+var bounceDistance: float = 0.02;
 
 
 function Awake(){
@@ -12,9 +13,9 @@ function Awake(){
 }
 
 function Update () {
-
 	if(Input.GetButton ("Fire1")&& mover){
-		//Crea un raycast hasta la posición deseada
+//	GameObject.Find("MusicaCaminar").audio.Play();
+		sonido=true;
 		var playerPlane = new Plane(Vector3.up, transform.position);
 		var ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		var hitdist = 0.0;
@@ -24,7 +25,7 @@ function Update () {
 			targetPosition = ray.GetPoint(hitdist);
 		}
 		
-			
+		
 		var relativePos = targetPosition - transform.position;
 		var rotation = Quaternion.LookRotation(relativePos);
 		
@@ -38,6 +39,15 @@ function Update () {
 		}else if(rotation.eulerAngles.y> 315 || rotation.eulerAngles.y <45){
 			SendMessage("DoAnim","caminar");;
 		}		
+		
+	}else{
+		sonido=false;
+	}
+//	print("SIII 1");
+	if(sonido){
+	if(!GameObject.Find("MusicaCaminar").audio.isPlaying){
+	GameObject.Find("MusicaCaminar").audio.Play();	
+	}
 	}
 	
 	if(transform.position == targetPosition && mover){
@@ -66,21 +76,18 @@ function SetTargetPosition(nTarget : Vector3){
 
 function MoverOff(){
 	targetPosition = Vector3.zero;
-	print("se desactiva movimiento");
 	mover = false;
 	SendMessage("StopAnim");
 }
 
 function MoverOn(){
-print("se activa movimiento");
 	mover = true;
 }
 
-function inicializarValores(bounce: float, speedArg : float){
-
-	bounceDistance = bounce;
-	speed= speedArg ;
-
+function inicializarValores(bounceArg: float, speedArg: float){
+speed = speedArg; 
+bounceDistance = bounceArg;
 }
+
 
 

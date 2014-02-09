@@ -7,6 +7,7 @@
 // Managers
 // ================================================================================
 private var managerDialogos: ManagerDialogos2;
+private var timer: Timer;
 private var playerManager : Player_Manager;
 private var lootManager : LootManager1_5;
 private var persistance : Persistance;
@@ -76,10 +77,12 @@ GameObject.Find("Diana").renderer.enabled = false;
 	GameObject.Find("Mario").renderer.enabled = false;
 	GameObject.Find("Francisco").collider.enabled = false;
 	GameObject.Find("Francisco").renderer.enabled = false;
+	GameObject.Find("Directional").light.enabled=false;
 
 //Inicializacion de los managers y demas scripts
 playerManager = GetComponent(Player_Manager);
 managerDialogos = GetComponent(ManagerDialogos2);
+timer = GetComponent(Timer);
 lootManager = GetComponent(LootManager1_5);
 inventario = GetComponent(InventarioManager);
 persistance = GameObject.Find("Persistance").GetComponent(Persistance);
@@ -142,19 +145,25 @@ function OnGUI(){
 //Implementación de la función Trigger()
 function EventTrigger(comando : String){
 	currentPlayer = playerManager.getCurrentPlayer();
+	
 	if(comando.Equals("HabitacionOscura")){
 		if(currentPlayer.getId() == Player_Manager.MARIO){
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_HABITACION_NEGACION_MARIO);
-			GameObject.Find("HabitacionTrigger").GetComponent(Interactor_Trigger).Reactivar();
+//			GameObject.Find("HabitacionTrigger").GetComponent(Interactor_Trigger).Reactivar();
 		}else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_HABITACION_NEGACION);
-			GameObject.Find("HabitacionTrigger").GetComponent(Interactor_Trigger).Reactivar();
+//			GameObject.Find("HabitacionTrigger").GetComponent(Interactor_Trigger).Reactivar();
 		}
 	}
+	
+	
 	if(comando.Equals("SolucionCorrecta")){
 		Destroy(GameObject.Find("HabitacionOscura"));
+		Destroy(GameObject.Find("HabitacionOscura2"));
 		Destroy(GameObject.Find("HabitacionTigger"));
+		Destroy(GameObject.Find("HabitacionTrigger"));
 		GameObject.Find("Fusibles").GetComponent(Interactor_Click).FlagOff();
+		GameObject.Find("Directional").light.enabled=true;
 	}
 	if(comando.Equals("SolucionIncorrecta")){
 		managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_FUSIBLES_INCORRECTO);
@@ -265,7 +274,9 @@ function EventSwitch(comando : String){
 	/////////////////////////////////////////////////////////////////////////////////////////
 	
 	if(comando.Equals("Caja")){
-		
+		Destroy(GameObject.Find("HabitacionOscura"));
+		Destroy(GameObject.Find("HabitacionOscura2"));
+		Destroy(GameObject.Find("HabitacionTigger"));
 		managerDialogos.empezarDialogos(ManagerDialogos2.MONOLOGO_CAJA);
 		contadorDinero++;
 		
@@ -298,6 +309,8 @@ function EventSwitch(comando : String){
 				GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_EXITO);
 				contadorDinero++;
+			}else{
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ROBAR_PERSONA_NEGACION_MARIO);
 			}
 		}
 		else{
@@ -459,6 +472,9 @@ function EventSwitch(comando : String){
 		} 
 		
 	}
+	
+	
+	
 	/////////////////////////////////////////////////////////////////////////////////////////
 	if(comando.Equals("AlarmaCarro")){
 	
@@ -543,6 +559,9 @@ function EventDialog(idResultado : int){
 	break;
 	
 	case ManagerDialogos2.RESULTADO_REVUELTA:
+		GameObject.Find("Directional").light.enabled=false;
+		timer.shake();
+		yield WaitForSeconds(5);
 		Application.LoadLevel(siguienteNivel);
 	break;
 	}

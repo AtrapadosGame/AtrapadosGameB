@@ -45,7 +45,6 @@ function Update(){
 // Awake
 // ================================================================================
 function Awake() {
-print("esta temblando");
 	startTime = Time.time;
 	lastShake = startTime;
 	numTemblores = 0;
@@ -77,18 +76,20 @@ function OnGUI () {
 		
 	}
 	if(restSeconds<120){
-		
 		timeUntilShake = 30;
 	}
 
-	
-	
-	
-	if (restSeconds == 0) {
-		GUI.Label (Rect (Screen.width/2 , Screen.height/2, 100, 100), "Has Perdido");
-		gameOver();
+	if (restSeconds < 0) {
+		GUI.Label (Rect (Screen.width/2 - 100 , Screen.height/2-Screen.height/4, 400, 200), "<size=40>HAS PERDIDO</size>");
+		GameObject.Find("Directional").light.enabled=false;
+		shake();
+//		Application.LoadLevel(siguienteNivel);
 	}
 	
+//	if (restSeconds <= -2) {
+	if (restSeconds <= -5) {
+	Application.LoadLevel ("FinalN2");
+	}
 	//display the timer
 	roundedRestSeconds = Mathf.CeilToInt(restSeconds);
 	displaySeconds = roundedRestSeconds % 60;
@@ -97,7 +98,9 @@ function OnGUI () {
 	var text : String = String.Format ("{0:00}:{1:00}", displayMinutes, displaySeconds);
 	var anchoLabel:int = Screen.width/8;
 	var altoLabel:int = Screen.height/8;
-	//GUI.Label (Rect (Screen.width/2 - anchoLabel, 0, anchoLabel, altoLabel), text);
+	if (restSeconds > 0) {
+	GUI.Label (Rect (Screen.width/2 - anchoLabel, 0, anchoLabel, altoLabel), text);
+	}
 }
 
  
@@ -107,7 +110,6 @@ function OnGUI () {
 
 
 function shake(){
-print("esta temblando");
     originPosition = MainCamera.transform.position;
     originRotation = MainCamera.transform.rotation;
     shake_intensity = .3;

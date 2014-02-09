@@ -106,7 +106,7 @@ function WindowFunction (windowID : int) {
 	if(enOpcion){
 	
 	
-	if(GUI.Button(Rect (10, 20, ventana.width, 75), textoOpcion1)){
+	if(GUI.Button(Rect (10, 0, ventana.width, 75), textoOpcion1)){
 	print("Escogio Opcion 1:");
 	conversacionActual.setNodoActual(conversacionActual.getNodoActual().getHijo1());
 	dibujarDialogo();
@@ -115,7 +115,7 @@ function WindowFunction (windowID : int) {
 	textoOpcion2 = "";
 	
 	}
-	if(GUI.Button(Rect (10, 95, ventana.width, 75), textoOpcion2)){
+	if(GUI.Button(Rect (10, 65, ventana.width, 75), textoOpcion2)){
 		print("Escogio Opcion 2:");
 	conversacionActual.setNodoActual(conversacionActual.getNodoActual().getHijo2());
 	dibujarDialogo();
@@ -125,8 +125,8 @@ function WindowFunction (windowID : int) {
 	}
 	if(conversacionActual.getNodoActual().getHijo3()){
 	
-	if(GUI.Button(Rect (10, 170, ventana.width, 75), textoOpcion3)){
-		print("Escogio Opcion 2:");
+	if(GUI.Button(Rect (10, 140, ventana.width, 75), textoOpcion3)){
+		print("Escogio Opcion 3:");
 	conversacionActual.setNodoActual(conversacionActual.getNodoActual().getHijo3());
 	dibujarDialogo();
 	enOpcion = false;
@@ -187,6 +187,7 @@ if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 
 function empezarDialogos(idConversacion:int ){
 print("empezarDialogos");
+GameObject.Find("MusicaDialogo").audio.Play();
 GetComponent(MenuManager).setBotonesHabilitado(false);
 
 switch(idConversacion){
@@ -414,7 +415,7 @@ nodoRaiz.setHijo1(nodo1);
 dialogos = new Array();
 l = new LineaDialogo("Tuvimos la suerte de sobrevivir al colapso del piso donde estábamos, no malogremos\n la oportunidad de salir, si no nos apuramos, podemos terminar aplastados.",1);
 dialogos.Push(l);
-l = new LineaDialogo("¡No puedo creerlo! Creí que usted tenía mejores sentimientos. Yo me rehusó a abandonar a la gente que nos necesita, voy a subir.",2);
+l = new LineaDialogo("¡No puedo creerlo! Creí que usted tenía mejores sentimientos. Yo me rehuso a abandonar a la gente que nos necesita, voy a subir.",2);
 dialogos.Push(l);
 
 var nodo2: NodoDialogo = new NodoDialogo(dialogos, NEGACION);
@@ -490,7 +491,7 @@ nodoRaiz.setHijo1(nodo1);
 */
 
 dialogos = new Array();
-l = new LineaDialogo("Si subimos todos lo que hacemos es estorbo, bajemos y avísanos a la gente\n que sabe de esto.",1);
+l = new LineaDialogo("Si subimos todo lo que hacemos es estorbo, bajemos y avisamos a la gente que sabe de esto.",1);
 dialogos.Push(l);
 l = new LineaDialogo("No hay seguridad de que haya gente afuera que nos ayude",2);
 dialogos.Push(l);
@@ -541,7 +542,7 @@ nodo2.setHijo2(nodo22);
 */
 
 dialogos = new Array();
-l = new LineaDialogo("No hay tiempo, no estamos seguros de cómo ayudar a nadie, y además creo que ya\n no pensamos muy bien, baje usted conmigo.",1);
+l = new LineaDialogo("No estamos seguros de cómo ayudar a nadie, y además creo que ya no pensamos muy bien, baje conmigo.",1);
 dialogos.Push(l);
 l = new LineaDialogo("No, definitivamente me quedo. Tengo que ayudar, al fin y al cabo, a eso bajé, a conseguir ayuda. Yo puedo colaborar con información del edificio. Subo, definitivamente subo.",2);
 dialogos.Push(l);
